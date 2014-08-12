@@ -1,0 +1,41 @@
+<div class="left-box">
+	 insert picture of the guitair player here
+</div>
+
+<div class="center-box">
+	<div class="logo">		<h1>Oddy</h1> 		</div> 
+	<div class="form-box">
+		<% if flash[:email_taken] == nil%>
+			<p>Thank you for your interest in Oddy.  We will contact you when the site becomes live.</p>
+		<% else %>
+			<%= flash[:email_taken]%>
+		<% end %>
+	</div>
+</div>
+
+<div class="right-box">
+	insert the picture of the comedian here	
+</div>
+
+#-----------------------------------------
+<div class="left-box">
+	 insert picture of the guitair player here
+</div>
+
+<div class="center-box">
+	<div class="logo">		<h1>Oddy</h1> 		</div> 
+	<div class="form-box">
+		<%= form_for(:splash_email_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create"}) do |form| %>
+			<p>
+				<%= form.text_field(:splash_email) %><br/>
+			</p>
+			<p>
+				<%= form.submit "Register", :id=>'register_submit'%>
+			</p>
+		<% end %>
+	</div>
+</div>
+
+<div class="right-box">
+	insert the picture of the comedian here	
+</div>
