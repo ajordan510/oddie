@@ -2,19 +2,33 @@
 <div id="container">
 <div id="top-section-container">
 	<div id="header">
-		<h1 id="header-text">Welcome to Oddy</h1>
+		<br/>
 	</div>
 		
 	<div id="content">
-		<div><%= image_tag "RockNRollGuitarist.png", :id => "guitar-photo", :class => "splash-photo" %></div>
+		<div><%= image_tag "black-guitar.JPG", :id => "guitar-photo", :class => "splash-photo" %></div>
 	</div>
 	
 	<div id="middle">
-		<p>notify me when the site goes live</p>
+		<h1 id="header-text">Oddie Entertainment</h1>
+		<h4>insert a slogan here or brief description</h4>
+		<p><br/></p>
 		<div class="form-box">
 			<%= form_for(:splash_email_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create"}) do |form| %>
 				<p>
-					<%= form.text_field :splash_email, :class =>'search-input', :placeholder =>'keep me posted'%><br/>
+					<%= form.text_field :splash_email, :class =>'search-input', :placeholder =>'keep me posted, email me at...'%><br/>
+				</p>
+				<br/>
+				<p>
+					I would be interested in being...
+				</p>
+				<p>
+					<%= radio_button_tag(:role, "performer") %>
+					<%= label_tag(:role_performer, "a performer") %>
+					<%= radio_button_tag(:role, "audience") %>
+					<%= label_tag(:role_audience, "an audience member") %>
+					<%= radio_button_tag(:role, "both") %>
+					<%= label_tag(:role_audience, "both") %>
 				</p>
 				<p>
 					<%= form.submit "Register", :id=>'register_submit', :class =>'button'%>
@@ -24,13 +38,13 @@
 	</div>
 
 	<div id="sidebar">
-		<div><%= image_tag "mic.png", :id => "guitar-photo", :class => "splash-photo" %></div>
+		<div><%= image_tag "black-mic.JPG", :id => "mic-photo", :class => "splash-photo" %></div>
 	</div>
 </div>
 	<div id="footer">
 		<br/>
 		</br/>
-		<h4>start the depth description here</h4>
+		<p>add in a detailed description of what we do ...</p>
 	</div>
 </div>
 </div>
