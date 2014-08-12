@@ -13,8 +13,48 @@
 
 ActiveRecord::Schema.define(version: 20140807003250) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "orders", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "recipient_id"
+    t.string   "delivery_date"
+    t.string   "budget"
+    t.string   "occasion"
+    t.text     "anything_else"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recipients", force: true do |t|
+    t.integer  "user_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "relationship_type"
+    t.string   "facebook"
+    t.string   "pinterest"
+    t.date     "birthday"
+    t.date     "anniversary"
+    t.string   "cars"
+    t.string   "vacation"
+    t.string   "bad_gift"
+    t.string   "day"
+    t.string   "saturday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "splash_users", force: true do |t|
     t.text     "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
