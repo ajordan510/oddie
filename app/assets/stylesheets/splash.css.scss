@@ -1,21 +1,46 @@
+    input[type=radio] {
+    border: 0px;
+    width: 100%;
+    height: 2em;
+}
+
+
+//scale text to be in percentages
+h1{
+  font-size: 2vw;
+}
+body{
+  font-size: 1vw;
+}
+//subtext and subsubtext
+.subtext{
+  margin: 0 0 0.42vw 0;
+}
+
+.subsubtext{
+  margin: 0 0 1.75vw 0;
+}
+
+
+
 //PLACEHOLDER TEXT
 ::-webkit-input-placeholder {
-   font-size: 18px;
+   font-size: 1.5vw;
    color: white;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   font-size: 18px;
+   font-size: 1.5vw;
    color: white;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   font-size: 18px;
+   font-size: 1.5vw;
    color: white;
 }
 
 :-ms-input-placeholder {  
-   font-size: 18px;
+   font-size: 1.5vw;
    color: white;
 }
 
@@ -25,6 +50,7 @@
   position: relative;
   left: 40%;
     outline: 0;
+    font-size: 1vw;
     padding: 5px 12px;
     display: block;
     color: #9fa8b0;
@@ -66,42 +92,31 @@
 
 /* Search CSS: */
 .search-input {
-    padding: 5px 5px 5px 5px;
-    border: 1px solid #1c252b;
-    height: 30px;
+    padding: 0.42vw 0.42vw 0.42vw 0.42vw;
+    border: 0.08vw solid #1c252b;
     width: 100%;
     color: #9fa8b0;
     text-align: center;
-    font-size: 12px;
-    line-height: 30px;
+    font-size: 1vw;
+    line-height: 2.5vw;
     font-weight: bold;
-    text-shadow: 1px 1px #1f272b;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
+    text-shadow: 0.083vw 0.083vw #1f272b;
+    border-radius: 0.5vw;
+    -moz-border-radius: 0.5vw;
+    -webkit-border-radius: 0.5vw;
     background: #20282D; /* old browsers */
     background: -moz-linear-gradient(top, #20282D 3%, #252E34 51%, #222A30 100%); /* firefox */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(3%,#20282D), color-stop(51%,#252E34), color-stop(100%,#222A30)); /* webkit */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#20282D', endColorstr='#222A30',GradientType=0 );
-    -moz-box-shadow: 1px 1px 1px rgba(255,255,255,0.1); /* Firefox */
-    -webkit-box-shadow: 1px 1px 1px rgba(255,255,255,0.1); /* Safari, Chrome */
-    box-shadow: 1px 1px 1px rgba(255,255,255,0.1); /* CSS3 */
+    -moz-box-shadow: 0.083vw 0.083vw 0.083vw rgba(255,255,255,0.1); /* Firefox */
+    -webkit-box-shadow: 0.083vw 0.083vw 0.083vw rgba(255,255,255,0.1); /* Safari, Chrome */
+    box-shadow: 0.083vw 0.083vw 0.083vw rgba(255,255,255,0.1); /* CSS3 */
     //background-image: url(mag-glass.png);
     //background-repeat: no-repeat;
     //background-position: left center;
 }
 .search-input:focus {outline: none;}
-.search-submit {
-    width: 13px;
-    height: 13px;
-    border: none;
-    background: url(mag-glass.png) no-repeat;
-    display: block;
-    position: absolute;
-    left: 26px;
-    top: 10px;
-    text-indent: -9999em;
-}
+
 
 
 
@@ -114,8 +129,8 @@
   text-align: center;
 }
 .splash-photo{
-  width: auto;
-  height: 350px;
+  width: 60%;
+  height: auto;
   margin: auto;
   display: block;
 }
@@ -128,6 +143,7 @@ body{
     background-color: black;
     color: white;
     font-family: 'Open Sans', sans-serif;
+    width:100%;
 }
 
 #header-text{
@@ -140,14 +156,14 @@ body{
 /* STRUCTURE */
 
 #pagewrap {
-  padding: 5px;
+  padding: 0.42vw;
   width: 100%;
-  margin: 20px auto;
+  margin: 1.67vw auto;
 }
 #header {
-  height: 100px;
+  height: 8.33vw;
   width: 97%;
-  padding: 0 15px;
+  padding: 0 1.25vw;
 }
 
 #container{
@@ -159,9 +175,9 @@ body{
 }
 
 #middle {
-  width: 29%; /* Account for margins + border values */
+  width: 31%; /* Account for margins + border values */
   float: left;
-  padding: 5px 15px;
+  //padding: 5px 15px;
 }
 
 #sidebar {
@@ -173,85 +189,3 @@ body{
   padding: 0 9%;
 }
 
-/************************************************************************************
-MEDIA QUERIES
-*************************************************************************************/
-/* for 980px or less */
-@media screen and (max-width: 980px) {
-  
-  #pagewrap {
-    width: 94%;
-  }
-  #content {
-    width: 41%;
-    padding: 1% 4%;
-  }
-  #middle {
-    width: 41%;
-    padding: 1% 4%;
-    margin: 0px 0px 5px 5px;
-    float: right;
-  }
-  
-  #sidebar {
-    clear: both;
-    padding: 1% 4%;
-    width: auto;
-    float: none;
-  }
-
-  #header, #footer {
-    padding: 1% 4%;
-  }
-}
-
-/* for 700px or less */
-@media screen and (max-width: 600px) {
-
-  #content {
-    width: auto;
-    float: none;
-  }
-  
-  #middle {
-    width: auto;
-    float: none;
-    margin-left: 0px;
-  }
-  
-  #sidebar {
-    width: auto;
-    float: none;
-  }
-
-}
-
-/* for 480px or less */
-@media screen and (max-width: 480px) {
-
-  #header {
-    height: auto;
-  }
-  h1 {
-    font-size: 2em;
-  }
-  #sidebar {
-    display: none;
-  }
-
-}
-
-
-#content {
-
-}
-#sidebar {
-
-}
-#header, #content, #middle, #sidebar {
-  margin-bottom: 5px;
-}
-
-#pagewrap, #header, #content, #middle, #sidebar, #footer {
-  //border: solid 1px #ccc;
-}
