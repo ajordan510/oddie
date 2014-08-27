@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="wholeword"/>
+		<item value="px" key="selection"/>
+		<list key="findhistory">
+			<item value="px"/>
+			<item value=".search-input"/>
+			<item value=".button"/>
+			<item value="font-size"/>
+			<item value="width"/>
+			<item value="ph"/>
+			<item value="pics"/>
+			<item value="content"/>
+		</list>
+	</section>
+</section>

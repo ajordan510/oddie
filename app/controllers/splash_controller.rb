@@ -1,6 +1,7 @@
 class SplashController < ApplicationController
   def index
     @title = 'Oddie'
+    #@js_file_to_include = ['jquery.final-countdown.js', 'jquery.final-countdown.min.js', 'kinetic.js']
   end
 
   def create
