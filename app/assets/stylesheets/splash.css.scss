@@ -1,3 +1,43 @@
+//JQUERY MENU STYLES
+
+.subMenu {
+  height: 3vw;
+  z-index: 1000;
+  width: 100%;
+  background: #8C1515;
+}
+
+.subMenu .inner {
+  padding:0;
+  font-weight: 400;
+  margin: 0 auto;
+}
+
+
+.subNavBtn {
+  display: block;
+  height: 3vw;
+  width: 19%;
+  float: left;
+  margin: 0px 0px 0 0;
+  text-decoration: none;
+  font-size: 2vw;
+  padding: 0 2% 0 2%;
+  text-align: center;
+  
+  color: #fff;
+}
+.subMenu a:hover {
+  background: #1783c7;
+}
+
+.active {
+  background: #25aae1;
+}
+.end {
+  margin: 0;
+}
+
 //CIRCULAR COUNTDOWN CSS FROM DEMO
 .clock-item{
   width: 15vw !important;
@@ -35,18 +75,18 @@
   font-weight: bold;  
 
   position: absolute;
-  top: 32%;
+  top: 25%;
   text-align: center;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
   width: 100%;
 }
 
 .text .val {
-  font-size: 1vw;
+  font-size: 2vw;
 }
 
 .text .type-time {
-  font-size: 0.5vw;
+  font-size: 1vw;
 }
 
 .clock-item {
@@ -211,8 +251,8 @@ body{
 }
 #header {
   height: 8.33vw;
-  width: 97%;
-  padding: 0 1.25vw;
+  width: 100%;
+  padding: 0 0;
 }
 
 #container2{

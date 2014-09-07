@@ -28,7 +28,7 @@
 
         var defaults = $.extend({
             start: '1362139200',
-            end: '1388461320',
+            end: '1420070400',
             now: '1387461319',
             selectors: {
                 value_seconds: '.clock-seconds .val',

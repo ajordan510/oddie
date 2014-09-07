@@ -1,6 +1,22 @@
-
 <div id="container2">
+	
 	<div id="header">
+		<script type="text/javascript">
+		console.log('here')
+			$(document).ready( function() {
+			    $('.subMenu').smint();
+			});
+		</script>
+		<div class="subMenu" >
+	 	
+	 		<a href="#logo-section" class="subNavBtn">Home</a> 
+	 		<a href="#description" class="subNavBtn">Description</a> 
+			<a href="#vision" class="subNavBtn">Vision</a>
+			<a href="#countdown-section" class="subNavBtn">Countdown</a>
+			<a href="https://twitter.com/" class="subNavBtn extLink end">Twitter us</a>
+		</div>
+		<div class="inner">
+		</div>
 		<br/>
 	</div>
 		
@@ -8,7 +24,7 @@
 		<div><%= image_tag "black-guitar.JPG", :id => "guitar-photo", :class => "splash-photo" %></div>
 	</div>
 	
-	<div id="middle">
+	<div id="middle" class="logo-section">
 		<h1 id="header-text">SpectaFresh</h1>
 		<h3 class="subtext">Letting artists shine. Letting you unwind</h3>
 		<h5 class="subsubtext">An online platform for untapped talent. </h5>
@@ -44,7 +60,7 @@
 	<div id="footer">
 		<br/>
 		</br/>
-		<div id="description">
+		<div id="description" class="description">
 			<h1> Description </h1>
 		<p>
 			If you’re anything like us, you love to be entertained, right? Singing, dancing, comedy, magic, you name it.  If it’s high quality, it will get your attention plain 			and simple. 
@@ -56,7 +72,7 @@
 			SpectaFresh is a revolutionary platform for live, untapped, amateur talent. Log in as an entertainer, and broadcast your live performance to a sizeable audience 			across the world sitting at their computer screens.  All you need is a webcam! As a viewer, it’s even more simple: log in, select what kind of entertainment you are 			in the mood for (stand up comedy, music, acapella, other random talents, etc.), and be connected to a live performance in a matter of seconds!
 		</p>
 	</div>	
-	<div id="vision">
+	<div id="vision" class="vision">
 			<h1> Vision </h1>
 			<p>
 				There is so much untapped potential among aspiring artists all over the world, and SpectaFresh is here to address that.  Our vision is to become the world’s 				leading platform for aspiring artists of all sorts: singers, dancers, musicians, comedians, storytellers, and countless other unique talents. 
@@ -73,6 +89,7 @@
 	</div>
 	
 <br/>
+<div id="countdown-section" class="countdown-section">
 	<h5 id="title-countdown">Hang tight and countdown with us to our beta release</h5>
 <div class="countdown-container container">
 
@@ -145,7 +162,7 @@
 </div>
 <!-- /.countdown-wrapper --> 
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+
 	<%= javascript_include_tag "kinetic" %>
 <%= javascript_include_tag "final_countdown" %>
 <script type="text/javascript">
@@ -165,7 +182,7 @@
   })();
 
 </script>
-
+</div>
 
 	
 
