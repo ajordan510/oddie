@@ -9,12 +9,10 @@
 <link href="/assets/application.css?body=1" media="all" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <%= stylesheet_link_tag    "application", :media => "all", :type => "text/css" %>
+<%= javascript_include_tag "application" %>
+<%= javascript_include_tag "countdown" %>
 
-<% if @js_file_to_include != nil %>
-	<% @js_file_to_include.each do |js_file| %>
-		<%= javascript_include_tag js_file, :type => "text/javascript" %>
-	<% end %>  
-<% end %>  
+
   <%= csrf_meta_tags %>
 </head>
 <body>

@@ -1,3 +1,58 @@
+//CIRCULAR COUNTDOWN CSS FROM DEMO
+.clock-item{
+  width: 15vw !important;
+  height: 15vw !important;
+}
+.countdown-container {
+  position: relative;
+  top: 50%;
+}
+.container{
+  margin-left: -2vw;
+  margin-right: 0;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  margin-top: 4vw;
+}
+
+.clock-item .inner {
+  height: 0px;
+  padding-bottom: 100%;
+  position: relative; 
+  width: 100%;
+}
+
+.clock-canvas {
+  background-color: rgba(255, 255, 255, .1);
+  border-radius: 50%;
+  height: 0px;
+  padding-bottom: 100%;
+}
+
+.text {
+  color: #fff;  
+  font-size: 30px;
+  font-weight: bold;  
+
+  position: absolute;
+  top: 32%;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+  width: 100%;
+}
+
+.text .val {
+  font-size: 1vw;
+}
+
+.text .type-time {
+  font-size: 0.5vw;
+}
+
+.clock-item {
+  margin: 0px 1vw 1vw 1vw;
+}
+
 
 //scale text to be in percentages
 h1{
@@ -160,7 +215,7 @@ body{
   padding: 0 1.25vw;
 }
 
-#container{
+#container2{
   width: 100%;
 }
 #content {
