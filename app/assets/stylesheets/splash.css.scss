@@ -1,6 +1,83 @@
-#content, #middle, #sidebar{
+.description{
+  display:block;
+  overflow:auto;
+}
+.section-title{
+  text-align: center;
+  font-size: 3vw;
+  font-weight: bold;
+ 
+}
+
+.section-title-vision{
+  text-align: center;
+  font-size: 3vw;
+  font-weight: bold;
+  margin-top: -0.4vw;
+}
+
+#desc-video{
+  width: 50%;
+  overflow: hidden;
+  padding-top: 3vw;
+}
+#video1{
+  width:74%;
+  position: relative;
+  left: 13%;
+}
+#video{
 
 }
+#desc-text{
+  width: 50%;
+  float: left;
+  padding-right: 1vw;
+  padding-top: 3vw;
+  font-size: 1.25vw;
+}
+
+label{
+  font-size: 1.5vw;
+  font-weight: bold;
+  text-shadow: 1px 1px black;
+}
+input[type="radio"]{
+  margin-left: 1vw;
+  margin-right: 0.1vw;
+  margin-top: -1px;
+  vertical-align: middle;
+}
+#middle{
+  background-image: url(audience.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  text-align: center;
+  height: 50vw;
+  float: left;
+}
+#container3{
+  height: 100%;
+}
+.subtext{
+  font-weight:bold;
+  text-shadow: 1px 1px black;
+  font-size: 1.5vw;
+}
+#header-text{
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 1px 1px black;
+  font-size: 5vw;
+  margin-top: 15vw;
+}
+
+#header {
+  width: 100%;
+  padding: 0 0;
+}
+
 
 .bottom{
   height: 2vw;
@@ -11,7 +88,7 @@
   margin-right: 0;
   position: relative;
   width: 80%;
-  left: 5%;
+  left: 10%;
 }
 h3{
   font-size: 1.3vw;
@@ -29,9 +106,12 @@ h5{
   width: 100%;
     background-color: #8a887d;
     padding: 2% 5% 2% 5%;
+    font-size: 1.25vw;
 }
 .countdown-section{
-  width: 100%;
+  width: 94%;
+  position: relative;
+  left: 3%;
     padding: 2% 5% 2% 5%;
     background-color: #303030 ;
 }
@@ -46,7 +126,7 @@ h5{
   height: 3vw;
   z-index: 1000;
   width: 100%;
-  background: #8C1515;
+  background: black;//#1919D1;
 }
 
 .subMenu .inner {
@@ -74,11 +154,11 @@ a{
   color: #fff;
 }
 .subMenu a:hover {
-  background: #820000;
+  background: #252e34;
 }
 
 .active {
-  background: #820000;
+  background: #252e34;
 }
 .end {
   margin: 0;
@@ -161,22 +241,22 @@ body{
 
 //PLACEHOLDER TEXT
 ::-webkit-input-placeholder {
-   font-size: 1.5vw;
+   font-size: 1vw;
    color: white;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   font-size: 1.5vw;
+   font-size: 1vw;
    color: white;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   font-size: 1.5vw;
+   font-size: 1vw;
    color: white;
 }
 
 :-ms-input-placeholder {  
-   font-size: 1.5vw;
+   font-size: 1vw;
    color: white;
 }
 
@@ -184,7 +264,7 @@ body{
 /* Dark Button CSS */
 .button {
   position: relative;
-  left: 40%;
+  left: 46%;
     outline: 0;
     font-size: 1vw;
     padding: 5px 12px;
@@ -228,25 +308,26 @@ body{
 
 /* Search CSS: */
 .search-input {
+  margin-top: 3vw;
     padding: 0.42vw 0.42vw 0.42vw 0.42vw;
-    border: 0.08vw solid #1c252b;
-    width: 100%;
+    border: 0.08vw solid black;//#1c252b;
+    width: 21.5%;
     color: #9fa8b0;
     text-align: center;
     font-size: 1vw;
     line-height: 2.5vw;
     font-weight: bold;
     text-shadow: 0.083vw 0.083vw #1f272b;
-    border-radius: 0.5vw;
+    border-radius: 1.5vw;
     -moz-border-radius: 0.5vw;
     -webkit-border-radius: 0.5vw;
-    background: #20282D; /* old browsers */
-    background: -moz-linear-gradient(top, #20282D 3%, #252E34 51%, #222A30 100%); /* firefox */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(3%,#20282D), color-stop(51%,#252E34), color-stop(100%,#222A30)); /* webkit */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#20282D', endColorstr='#222A30',GradientType=0 );
-    -moz-box-shadow: 0.083vw 0.083vw 0.083vw rgba(255,255,255,0.1); /* Firefox */
-    -webkit-box-shadow: 0.083vw 0.083vw 0.083vw rgba(255,255,255,0.1); /* Safari, Chrome */
-    box-shadow: 0.083vw 0.083vw 0.083vw rgba(255,255,255,0.1); /* CSS3 */
+    background-color: black;//#20282D; /* old browsers */
+    //background: -moz-linear-gradient(top, #20282D 3%, #252E34 51%, #222A30 100%); /* firefox */
+    //background: -webkit-gradient(linear, left top, left bottom, color-stop(3%,#20282D), color-stop(51%,#252E34), color-stop(100%,#222A30)); /* webkit */
+    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#20282D', endColorstr='#222A30',GradientType=0 );
+    //-moz-box-shadow: 0.083vw 0.083vw 0.083vw rgba(255,255,255,0.1); /* Firefox */
+    //-webkit-box-shadow: 0.083vw 0.083vw 0.083vw rgba(255,255,255,0.1); /* Safari, Chrome */
+    //box-shadow: 0.083vw 0.083vw 0.083vw rgba(255,255,255,0.1); /* CSS3 */
     //background-image: url(mag-glass.png);
     //background-repeat: no-repeat;
     //background-position: left center;
@@ -255,12 +336,6 @@ body{
 
 
 
-
-
-
-#middle{
-  text-align: center;
-}
 .splash-photo{
   width: 60%;
   height: auto;
@@ -279,10 +354,8 @@ body{
     width:100%;
 }
 
-#header-text{
-  text-align: center;
-}
-//---------------------------------------------------------------------------------------
+
+
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
 
@@ -293,24 +366,11 @@ body{
   width: 100%;
   margin: 1.67vw auto;
 }
-#header {
-  height: 8.33vw;
-  width: 100%;
-  padding: 0 0;
-}
 
-#container2{
-  width: 100%;
-}
+
 #content {
   width: 34%;
   float: left;
-}
-
-#middle {
-  width: 31%; /* Account for margins + border values */
-  float: left;
-  //padding: 5px 15px;
 }
 
 #sidebar {

@@ -1,43 +1,35 @@
-<div id="container2">
-	
-	<div id="header">
+<div id="header">
 		<script type="text/javascript">
 		console.log('here')
 			$(document).ready( function() {
 			    $('.subMenu').smint();
 			});
 		</script>
-		<div class="subMenu" >
+	<div class="subMenu" >
 	 	
 	 		<a href="#logo-section" class="subNavBtn">Home</a> 
 	 		<a href="#description" class="subNavBtn">Description</a> 
 			<a href="#vision" class="subNavBtn">Vision</a>
 			<a href="#countdown-section" class="subNavBtn">Countdown</a>
 			<a href="https://twitter.com/" class="subNavBtn extLink end">Twitter us</a>
-		</div>
-		<div class="inner">
-		</div>
-		<br/>
 	</div>
-		
-	<div id="content">
-		<div><%= image_tag "black-guitar.JPG", :id => "guitar-photo", :class => "splash-photo" %></div>
-	</div>
-	
-	<div id="middle" class="logo-section">
+</div>
+
+
+<div id="middle" class="logo-section">
 		<h1 id="header-text">SpectaFresh</h1>
-		<h3 class="subtext">Letting artists shine. Letting you unwind</h3>
-		<h5 class="subsubtext">An online platform for untapped talent. </h5>
+		<h3 class="subtext">Letting artists shine. Letting you unwind.</h3>
+		<h3 class="subtext">An online platform for untapped talent. </h3>
 		<p><br/></p>
 		<div class="form-box">
 			<%= form_for(:splash_email_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create"}) do |form| %>
 				<p>
-					<%= form.text_field :splash_email, :class =>'search-input', :placeholder =>'keep me posted, email me at...'%><br/>
+					<%= form.text_field :splash_email, :class =>'search-input', :placeholder =>"I'm intrigued, email me at..."%><br/>
 				</p>
 				<br/>
-				<p>
+				<h3 class="subtext">
 					I would be interested in being...
-				</p>
+				</h3>
 				<p>
 					<%= radio_button_tag(:role, "performer") %>
 					<%= label_tag(:role_performer, "a performer") %>
@@ -51,29 +43,48 @@
 				</p>
 			<% end %>
 		</div>
-	</div>
+</div>
 
-	<div id="sidebar">
-		<div><%= image_tag "black-mic.JPG", :id => "mic-photo", :class => "splash-photo" %></div>
-	</div>
 
+
+</div>
+<div id="container3">
 	<div id="footer">
 		<br/>
-		</br/>
+		<br/>
 		<div id="description" class="description">
-			<h1> Description </h1>
-		<p>
-			If you’re anything like us, you love to be entertained, right? Singing, dancing, comedy, magic, you name it.  If it’s high quality, it will get your attention plain 			and simple. 
-		</p>
-	   	<p>
-			Also, if you’re anything like us, you probably know someone who is insanely talented at something, and quite frankly could keep up with the best of the best.  Heck, 			maybe that person is even you!  
-		</p>
-		<p>
-			SpectaFresh is a revolutionary platform for live, untapped, amateur talent. Log in as an entertainer, and broadcast your live performance to a sizeable audience 			across the world sitting at their computer screens.  All you need is a webcam! As a viewer, it’s even more simple: log in, select what kind of entertainment you are 			in the mood for (stand up comedy, music, acapella, other random talents, etc.), and be connected to a live performance in a matter of seconds!
-		</p>
+			<h1 class="section-title"> What is SpectaFresh? </h1>
+			<div id="desc-text">
+				<p>
+					If you’re anything like us, you love to be entertained, right? Singing, dancing, comedy, magic, you name it.  If it’s high quality, it will get your attention plain 			and simple. 
+				</p>
+			   	<p>
+					Also, if you’re anything like us, you probably know someone who is insanely talented at something, and quite frankly could keep up with the best of the best.  Heck, 			maybe that person is even you!  
+				</p>
+				<p>
+					SpectaFresh is a revolutionary platform for live, untapped, amateur talent. Log in as an entertainer, and broadcast your live performance to a sizeable audience 			across the world sitting at their computer screens.  All you need is a webcam! As a viewer, it’s even more simple: log in, select what kind of entertainment you are 			in the mood for (stand up comedy, music, acapella, other random talents, etc.), and be connected to a live performance in a matter of seconds!
+				</p>
+		</div>
+		<div id="desc-video">
+			<div id="video">
+				<video id="video1" width="346" height="260" onclick="playPause()"  poster="/assets/video-play.jpg" >
+			    	<source src="/assets/placeholder-video.MP4" type="video/mp4">
+			    	Your browser does not support HTML5 video.
+				</video>
+			</div>
+			<script> 
+				var myVideo = document.getElementById("video1");
+				function playPause() { 
+			    if (myVideo.paused) 
+			        myVideo.play(); 
+			    else 
+			        myVideo.pause(); 
+				} 
+			</script>
+		</div>
 	</div>	
 	<div id="vision" class="vision">
-			<h1> Vision </h1>
+			<h1 class="section-title-vision"> Our Vision </h1>
 			<p>
 				There is so much untapped potential among aspiring artists all over the world, and SpectaFresh is here to address that.  Our vision is to become the world’s 				leading platform for aspiring artists of all sorts: singers, dancers, musicians, comedians, storytellers, and countless other unique talents. 
 			</p>
@@ -87,100 +98,101 @@
 				Perhaps you have an audition coming up and could use some feedback?  Or you just want to get better at your craft?  With SpectaFresh, viewers will be able to 				rate performers and submit feedback. Top rated performers will be featured on our homepage, and will even be able to share and sell their material on our 				website. 
 			</p>
 	</div>
-	
+</div>
 <div id="countdown-section" class="countdown-section">
-	<h5 id="title-countdown">Hang tight and countdown with us to our beta release</h5>
-<div class="countdown-container container">
+	<h1 class="section-title-vision"> Countdown with us to our beta release </h1>
+	<div class="countdown-container container">
 
-<div class="clock row">
-<div class="clock-item clock-days countdown-time-value col-sm-6 col-md-3">
-<div class="wrap">
-<div class="inner">
-<div id="canvas_days" class="clock-canvas"></div>
-<div class="text">
-<p class="val">0</p>
-<p class="type-days type-time">DAYS</p>
-</div>
-<!-- /.text --> 
-</div>
-<!-- /.inner --> 
-</div>
-<!-- /.wrap --> 
-</div>
-<!-- /.clock-item -->
+		<div class="clock row">
+			<div class="clock-item clock-days countdown-time-value col-sm-6 col-md-3">
+				<div class="wrap">
+					<div class="inner">
+						<div id="canvas_days" class="clock-canvas"></div>
+						<div class="text">
+							<p class="val">0</p>
+							<p class="type-days type-time">DAYS</p>
+						</div>
+						<!-- /.text --> 
+					</div>
+					<!-- /.inner --> 
+				</div>
+				<!-- /.wrap --> 
+			</div>
+			<!-- /.clock-item -->
 
-<div class="clock-item clock-hours countdown-time-value col-sm-6 col-md-3">
-<div class="wrap">
-<div class="inner">
-<div id="canvas_hours" class="clock-canvas"></div>
-<div class="text">
-<p class="val">0</p>
-<p class="type-hours type-time">HOURS</p>
-</div>
-<!-- /.text --> 
-</div>
-<!-- /.inner --> 
-</div>
-<!-- /.wrap --> 
-</div>
-<!-- /.clock-item -->
+			<div class="clock-item clock-hours countdown-time-value col-sm-6 col-md-3">
+				<div class="wrap">
+					<div class="inner">
+						<div id="canvas_hours" class="clock-canvas"></div>
+						<div class="text">
+							<p class="val">0</p>
+							<p class="type-hours type-time">HOURS</p>
+						</div>
+						<!-- /.text --> 
+					</div>
+					<!-- /.inner --> 
+				</div>
+				<!-- /.wrap --> 
+			</div>
+			<!-- /.clock-item -->
 
-<div class="clock-item clock-minutes countdown-time-value col-sm-6 col-md-3">
-<div class="wrap">
-<div class="inner">
-<div id="canvas_minutes" class="clock-canvas"></div>
-<div class="text">
-<p class="val">0</p>
-<p class="type-minutes type-time">MINUTES</p>
-</div>
-<!-- /.text --> 
-</div>
-<!-- /.inner --> 
-</div>
-<!-- /.wrap --> 
-</div>
-<!-- /.clock-item -->
+			<div class="clock-item clock-minutes countdown-time-value col-sm-6 col-md-3">
+				<div class="wrap">
+					<div class="inner">
+						<div id="canvas_minutes" class="clock-canvas"></div>
+						<div class="text">
+							<p class="val">0</p>
+							<p class="type-minutes type-time">MINUTES</p>
+						</div>
+						<!-- /.text --> 
+					</div>
+					<!-- /.inner --> 
+				</div>
+			<!-- /.wrap --> 
+			</div>
+			<!-- /.clock-item -->
 
-<div class="clock-item clock-seconds countdown-time-value col-sm-6 col-md-3">
-<div class="wrap">
-<div class="inner">
-<div id="canvas_seconds" class="clock-canvas"></div>
-<div class="text">
-<p class="val">0</p>
-<p class="type-seconds type-time">SECONDS</p>
-</div>
-<!-- /.text --> 
-</div>
-<!-- /.inner --> 
-</div>
-<!-- /.wrap --> 
-</div>
-<!-- /.clock-item --> 
-</div>
-<!-- /.clock --> 
-</div>
-<!-- /.countdown-wrapper --> 
+			<div class="clock-item clock-seconds countdown-time-value col-sm-6 col-md-3">
+				<div class="wrap">
+					<div class="inner">
+						<div id="canvas_seconds" class="clock-canvas"></div>
+						<div class="text">
+							<p class="val">0</p>
+							<p class="type-seconds type-time">SECONDS</p>
+						</div>
+						<!-- /.text --> 
+					</div>
+					<!-- /.inner --> 
+				</div>
+				<!-- /.wrap --> 
+			</div>
+			<!-- /.clock-item --> 
+		</div>
+	<!-- /.clock --> 
+	</div>
+	<!-- /.countdown-wrapper --> 
 
 
 	<%= javascript_include_tag "kinetic" %>
-<%= javascript_include_tag "final_countdown" %>
-<script type="text/javascript">
-	$('.countdown').final_countdown({});
-</script>
-<script type="text/javascript">
+	<%= javascript_include_tag "final_countdown" %>
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
+	<script type="text/javascript">
+		$('.countdown').final_countdown({});
+	</script>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-36251023-1']);
+	  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+	  _gaq.push(['_trackPageview']);
 
-</script>
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	 })();
+
+	</script>
 </div>
 
 <div class="bottom">

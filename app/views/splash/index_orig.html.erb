@@ -1,0 +1,192 @@
+<div id="container2">
+	
+	<div id="header">
+		<script type="text/javascript">
+		console.log('here')
+			$(document).ready( function() {
+			    $('.subMenu').smint();
+			});
+		</script>
+		<div class="subMenu" >
+	 	
+	 		<a href="#logo-section" class="subNavBtn">Home</a> 
+	 		<a href="#description" class="subNavBtn">Description</a> 
+			<a href="#vision" class="subNavBtn">Vision</a>
+			<a href="#countdown-section" class="subNavBtn">Countdown</a>
+			<a href="https://twitter.com/" class="subNavBtn extLink end">Twitter us</a>
+		</div>
+		<div class="inner">
+		</div>
+		<br/>
+	</div>
+		
+	<div id="content">
+		<div><%= image_tag "black-guitar.JPG", :id => "guitar-photo", :class => "splash-photo" %></div>
+	</div>
+	
+	<div id="middle" class="logo-section">
+		<h1 id="header-text">SpectaFresh</h1>
+		<h3 class="subtext">Letting artists shine. Letting you unwind</h3>
+		<h5 class="subsubtext">An online platform for untapped talent. </h5>
+		<p><br/></p>
+		<div class="form-box">
+			<%= form_for(:splash_email_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create"}) do |form| %>
+				<p>
+					<%= form.text_field :splash_email, :class =>'search-input', :placeholder =>'keep me posted, email me at...'%><br/>
+				</p>
+				<br/>
+				<p>
+					I would be interested in being...
+				</p>
+				<p>
+					<%= radio_button_tag(:role, "performer") %>
+					<%= label_tag(:role_performer, "a performer") %>
+					<%= radio_button_tag(:role, "audience") %>
+					<%= label_tag(:role_audience, "an audience member") %>
+					<%= radio_button_tag(:role, "both") %>
+					<%= label_tag(:role_audience, "both") %>
+				</p>
+				<p>
+					<%= form.submit "Register", :id=>'register_submit', :class =>'button'%>
+				</p>
+			<% end %>
+		</div>
+	</div>
+
+	<div id="sidebar">
+		<div><%= image_tag "black-mic.JPG", :id => "mic-photo", :class => "splash-photo" %></div>
+	</div>
+
+	<div id="footer">
+		<br/>
+		</br/>
+		<div id="description" class="description">
+			<h1> Description </h1>
+		<p>
+			If you’re anything like us, you love to be entertained, right? Singing, dancing, comedy, magic, you name it.  If it’s high quality, it will get your attention plain 			and simple. 
+		</p>
+	   	<p>
+			Also, if you’re anything like us, you probably know someone who is insanely talented at something, and quite frankly could keep up with the best of the best.  Heck, 			maybe that person is even you!  
+		</p>
+		<p>
+			SpectaFresh is a revolutionary platform for live, untapped, amateur talent. Log in as an entertainer, and broadcast your live performance to a sizeable audience 			across the world sitting at their computer screens.  All you need is a webcam! As a viewer, it’s even more simple: log in, select what kind of entertainment you are 			in the mood for (stand up comedy, music, acapella, other random talents, etc.), and be connected to a live performance in a matter of seconds!
+		</p>
+	</div>	
+	<div id="vision" class="vision">
+			<h1> Vision </h1>
+			<p>
+				There is so much untapped potential among aspiring artists all over the world, and SpectaFresh is here to address that.  Our vision is to become the world’s 				leading platform for aspiring artists of all sorts: singers, dancers, musicians, comedians, storytellers, and countless other unique talents. 
+			</p>
+			<p>
+				In order for us to help you, whether you are an aspiring entertainer or simply a viewer who wants to be entertained, we need to continue growing our user base.  				So please join our mailing list! As one of our initial users, we will update you on the progress of SpectaFresh and fill you in with some exclusive sneak peeks 				along the way!
+			</p>
+			<p>
+				Initially, our beta site, expected to be released in January of 2015, will function around scheduled performances.  Viewers will be notified of the time and date 				of these performances, and will be able to log in easily to view the broadcasts.  With your help and a continuous growth in user base, SpectaFresh will evolve 				into something much more.  Eventually, as a viewer, you will be able to log in, specify what you’re in the mood for, and be connected to a live performance at 				the drop of a dime.  As a performer, you will never have to worry again about not being able to get gigs: you can have a virtual, worldwide audience in no time! 
+			</p>
+			<p>
+				Perhaps you have an audition coming up and could use some feedback?  Or you just want to get better at your craft?  With SpectaFresh, viewers will be able to 				rate performers and submit feedback. Top rated performers will be featured on our homepage, and will even be able to share and sell their material on our 				website. 
+			</p>
+	</div>
+	
+<div id="countdown-section" class="countdown-section">
+	<h5 id="title-countdown">Hang tight and countdown with us to our beta release</h5>
+<div class="countdown-container container">
+
+<div class="clock row">
+<div class="clock-item clock-days countdown-time-value col-sm-6 col-md-3">
+<div class="wrap">
+<div class="inner">
+<div id="canvas_days" class="clock-canvas"></div>
+<div class="text">
+<p class="val">0</p>
+<p class="type-days type-time">DAYS</p>
+</div>
+<!-- /.text --> 
+</div>
+<!-- /.inner --> 
+</div>
+<!-- /.wrap --> 
+</div>
+<!-- /.clock-item -->
+
+<div class="clock-item clock-hours countdown-time-value col-sm-6 col-md-3">
+<div class="wrap">
+<div class="inner">
+<div id="canvas_hours" class="clock-canvas"></div>
+<div class="text">
+<p class="val">0</p>
+<p class="type-hours type-time">HOURS</p>
+</div>
+<!-- /.text --> 
+</div>
+<!-- /.inner --> 
+</div>
+<!-- /.wrap --> 
+</div>
+<!-- /.clock-item -->
+
+<div class="clock-item clock-minutes countdown-time-value col-sm-6 col-md-3">
+<div class="wrap">
+<div class="inner">
+<div id="canvas_minutes" class="clock-canvas"></div>
+<div class="text">
+<p class="val">0</p>
+<p class="type-minutes type-time">MINUTES</p>
+</div>
+<!-- /.text --> 
+</div>
+<!-- /.inner --> 
+</div>
+<!-- /.wrap --> 
+</div>
+<!-- /.clock-item -->
+
+<div class="clock-item clock-seconds countdown-time-value col-sm-6 col-md-3">
+<div class="wrap">
+<div class="inner">
+<div id="canvas_seconds" class="clock-canvas"></div>
+<div class="text">
+<p class="val">0</p>
+<p class="type-seconds type-time">SECONDS</p>
+</div>
+<!-- /.text --> 
+</div>
+<!-- /.inner --> 
+</div>
+<!-- /.wrap --> 
+</div>
+<!-- /.clock-item --> 
+</div>
+<!-- /.clock --> 
+</div>
+<!-- /.countdown-wrapper --> 
+
+
+	<%= javascript_include_tag "kinetic" %>
+<%= javascript_include_tag "final_countdown" %>
+<script type="text/javascript">
+	$('.countdown').final_countdown({});
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</div>
+
+<div class="bottom">
+</div>
+
+	
+</div>
+
+
