@@ -1,2 +1,30 @@
-<h1>Splash#admin</h1>
-<p>Find me in app/views/splash/admin.html.erb</p>
+<h1>Hello Kareem - This will be our admin page to track users</h1>
+<p>There is a total of <span id="num-users"> <%=@users.count%> </span> people currently interested.</p>
+
+
+<h1> Performers </h1>
+<ol>
+	<% @performers.each do |element| %>
+		<li> <%= element.email %>....<%= element.role %> </li>
+	<% end %>
+	<% @both.each do |element| %>
+		<li> <%= element.email %>....<%= element.role %> </li>
+	<% end %>
+</ol>
+
+<h1> Audience Members </h1>
+<ol>
+	<% @audience.each do |element| %>
+		<li> <%= element.email %>....<%= element.role %> </li>
+	<% end %>
+	<% @both.each do |element| %>
+		<li> <%= element.email %>....<%= element.role %> </li>
+	<% end %>
+</ol>
+
+<h1> People who want to do both </h1>
+<ol>
+	<% @both.each do |element| %>
+		<li> <%= element.email %>....<%= element.role %> </li>
+	<% end %>
+</ol>

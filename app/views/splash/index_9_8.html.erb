@@ -21,7 +21,6 @@
 		<h3 class="subtext">Letting artists shine. Letting you unwind.</h3>
 		<h3 class="subtext">An online platform for untapped talent. </h3>
 		<p><br/></p>
-		<% if flash[:confirm] == nil%>
 		<div class="form-box">
 			<%= form_for(:splash_email_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create"}) do |form| %>
 				<p>
@@ -44,20 +43,13 @@
 				</p>
 			<% end %>
 		</div>
-		<% else %>
-			<p id="confirm-message"><%= flash[:confirm]%></p>
-		<% end %>
 </div>
 
 
 
 </div>
-
 <div id="container3">
-
-	</div>
 	<div id="footer">
-		<div><%= image_tag "microphone_blue.jpg", :id => "mic-photo", :class => "splash-photo" %>
 		<br/>
 		<br/>
 		<div id="description" class="description">
