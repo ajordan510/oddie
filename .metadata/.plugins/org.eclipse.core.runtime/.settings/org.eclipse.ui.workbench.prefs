@@ -1,4 +1,6 @@
 ACTIVE_HYPERLINK_COLOR=13,17,113
+ColorsAndFontsPreferencePage.expandedCategories=Torg.eclipse.ui.workbenchMisc
+ColorsAndFontsPreferencePage.selectedElement=Torg.eclipse.ui.workbenchMisc
 HYPERLINK_COLOR=13,17,113
 com.vectrace.mercurialeclipse.ui.colorsandfonts.IgnoredBackgroundColor=255,255,255
 com.vectrace.mercurialeclipse.ui.colorsandfonts.IgnoredForegroundColor=0,0,0
