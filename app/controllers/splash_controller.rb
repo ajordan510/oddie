@@ -12,6 +12,7 @@ class SplashController < ApplicationController
     else
       if SplashUser.find_by_email(email) == nil
         @new_splash_user = SplashUser.create(:email => email, :role => role)
+        SplashSuccess.splash_page_confirmation(email).deliver
       else
         flash[:email_taken] = "Email has already been issued. thanks for being so enthusiastic!"
       end

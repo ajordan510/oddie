@@ -34,4 +34,15 @@ Oddie::Application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :authentication => :plain,
+  :address => "smtp.mailgun.org",
+  :port => 587,
+  :domain => "sandboxb04e99e3f91c47059ea95e564937bd74.mailgun.org",
+  :user_name => "postmaster@sandboxb04e99e3f91c47059ea95e564937bd74.mailgun.org",
+  :password => "026ee3c16c3973602194de7e93de27ed"
+}
+
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "webrtc/test"
   get "splash/admin"
   #get 'splash/index'
   get ':controller(/:action(/:id))'
