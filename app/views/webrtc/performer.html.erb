@@ -3,20 +3,20 @@
     <h2 class="webrtc_title"> Performer Page </h2>
     <h3 class="browser_warning">Add in a browswer detection and alert if it is not webRTC compatible</h3>
     <br/>
-    <div class="setup-panel">                
+    <div class="setup-panel" id="setup-panel">                
         <section>
-            <div id="option-container" style="visibility: hidden; display:none">
-                <select id="broadcasting-option">
+            <div id="option-container" >
+                <select id="broadcasting-option" style="visibility: hidden; display:none">
                     <option>Audio + Video</option>
                     <option>Only Audio</option>
                     <option>Screen</option>
                 </select>
+            
+            <br/>
+            <span id="performance-title">Performance Title: </span><input type="text" id="broadcast-name" placeholder="Choose Broadcast Name"/>
+            <br/>
+            <br/>
             </div>
-            <br/>
-            <input type="text" id="broadcast-name" placeholder="Choose Broadcast Name"/>
-            <br/>
-            <br/>
-
 
         </section>                
         <table style="width: 100%;" id="rooms-list">
@@ -82,10 +82,20 @@
             }
         };
 
+
         function setupNewBroadcastButtonClickHandler() {
             document.getElementById('broadcast-name').disabled = true;
             document.getElementById('setup-new-broadcast').disabled = true;
-
+            document.getElementById('option-container').style.display= "none";
+            var setupPanel = document.getElementById('setup-panel');
+            var name = document.getElementById("broadcast-name").value
+            console.log(name)
+            var title = document.createElement("div")
+            title.className="appended-title"
+            console.log(title)
+            title.innerHTML = name;
+            setupPanel.insertBefore(title,setupPanel.firstChild)
+            
             captureUserMedia(function() {
                 var shared = 'video';
                 if (window.option == 'Only Audio') {
