@@ -24,17 +24,9 @@
             </section>
         
             <script>
-                // Muaz Khan     - https://github.com/muaz-khan
-                // MIT License   - https://www.webrtc-experiment.com/licence/
-                // Documentation - https://github.com/muaz-khan/WebRTC-Experiment/tree/master/webrtc-broadcasting
 
                 var config = {
                     openSocket: function(config) {
-                        // https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Signaling.md
-                        // This method "openSocket" can be defined in HTML page
-                        // to use any signaling gateway either XHR-Long-Polling or SIP/XMPP or WebSockets/Socket.io
-                        // or WebSync/SignalR or existing implementations like signalmaster/peerserver or sockjs etc.
-        
                         var channel = config.channel || location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
                         var socket = new Firebase('https://chat.firebaseIO.com/' + channel);
                         socket.channel = channel;
@@ -143,6 +135,7 @@
                     var htmlElement = document.createElement(option === 'Only Audio' ? 'audio' : 'video');
                     htmlElement.setAttribute('autoplay', true);
                     htmlElement.setAttribute('controls', true);
+                    htmlElement.setAttribute('muted', 'muted');
                     videosContainer.insertBefore(htmlElement, videosContainer.firstChild);
 
                     var mediaConfig = {
