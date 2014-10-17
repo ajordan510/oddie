@@ -29,7 +29,7 @@
         var defaults = $.extend({
             start: '1362139200',
             end: '1420070400',
-            now: '1387461319',
+            now: new Date();,
             selectors: {
                 value_seconds: '.clock-seconds .val',
                 canvas_seconds: 'canvas_seconds',
