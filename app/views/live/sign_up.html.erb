@@ -6,6 +6,15 @@
 	<% if flash[:confirm] == nil%>
 		
 		<div class="form-box">
+
+			<% if @new_live_user.nil? %>
+			<% else %>
+				<ol class = "error_mess_reg">
+					<% new_live_user.errors.full_messages.each do |msg| %>
+					<li > <%= msg %></li>
+					<% end %>
+				</ol>
+				<% end %>
 			<%= form_for(:live_signup_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create"}) do |form| %>
 
 			<!-- USER'S EMAIL ADDRESS -->
@@ -99,8 +108,9 @@
 			</p>
 			<% end %>
 	</div>
+	
 	<% else %>
 			<p id="confirm-message"><%= flash[:confirm]%></p>
-	<% end %>
+	<% end %> 
 </div>
 </div>
