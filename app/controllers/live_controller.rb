@@ -26,7 +26,9 @@ class LiveController < ApplicationController
     genre_DJ = params[:live_signup_form][:genre_DJ]
     genre_other = params[:live_signup_form][:genre_other]
     description = params[:live_signup_form][:description]
-    photo = params[:live_signup_form][:upload_photo]
+    @photo_name = params[:live_signup_form][:upload_photo].original_filename
+    path_for_upload = File.join(Rails.root.to_s+"/public/images",@photo_name)
+    #File.open(path_for_upload, "wb"){|fff| fff.write(params[:live_signup_form][:upload_photo].read)} 
     #id = params[:id]
     @new_live_user = LiveUser.create(:email => email, :nickname => nickname, :password => pass, 
     	:password_confirmation => pass_conf, :age => age, :performer => performer, 

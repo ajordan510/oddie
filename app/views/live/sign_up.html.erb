@@ -49,7 +49,7 @@
 				<%= label_tag(:performer_option_yes,"Yes") %>
 				<%= radio_button_tag(:performer, "no") %>
 				<%= label_tag(:performer_option_no,"No") %>
-				<%= radio_button_tag(:performer, "maybe") %>
+				<%= radio_button_tag(:performer, "yes") %>
 				<%= label_tag(:performer_option_yes,"Maybe") %>
 			</p>
 			<!--FOLLOWING FIELDS ACTIVATED IF YES/MAYBE TO PERFORMER -->
@@ -87,6 +87,11 @@
 			<p>
 				<%= form.label :Profile_Photo %>
 				<%= form.file_field(:upload_photo) %> <br/>
+			</p>
+
+			<p>
+				<%= check_box_tag(:terms_conitions, "acceptance") %>
+				<%= label_tag(:genre_other_tag, "I accept terms and conditions.") %>
 			</p>
 			<!-- SUBMIT BUTTON -->
 			<p>
