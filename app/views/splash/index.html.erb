@@ -22,28 +22,28 @@
 		<h3 class="subtext">An online platform for untapped talent. </h3>
 		<p><br/></p>
 		<% if flash[:confirm] == nil%>
-		<div class="form-box">
-			<%= form_for(:splash_email_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create"}) do |form| %>
-				<p>
-					<%= form.text_field :splash_email, :class =>'search-input', :placeholder =>"I'm intrigued, email me at..."%><br/>
-				</p>
-				<br/>
-				<h3 class="subtext">
-					I would be interested in being...
-				</h3>
-				<p>
-					<%= radio_button_tag(:role, "performer") %>
-					<%= label_tag(:role_performer, "a performer") %>
-					<%= radio_button_tag(:role, "audience") %>
-					<%= label_tag(:role_audience, "an audience member") %>
-					<%= radio_button_tag(:role, "both") %>
-					<%= label_tag(:role_audience, "both") %>
-				</p>
-				<p>
-					<%= form.submit "Register", :id=>'register_submit', :class =>'button'%>
-				</p>
-			<% end %>
-		</div>
+			<div class="form-box">
+				<%= form_for(:splash_email_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create"}) do |form| %>
+					<p>
+						<%= form.text_field :splash_email, :class =>'search-input', :placeholder =>"I'm intrigued, email me at..."%><br/>
+					</p>
+					<br/>
+					<h3 class="subtext">
+						I would be interested in being...
+					</h3>
+					<p>
+						<%= radio_button_tag(:role, "performer") %>
+						<%= label_tag(:role_performer, "a performer") %>
+						<%= radio_button_tag(:role, "audience") %>
+						<%= label_tag(:role_audience, "an audience member") %>
+						<%= radio_button_tag(:role, "both") %>
+						<%= label_tag(:role_audience, "both") %>
+					</p>
+					<p>
+						<%= form.submit "Register", :id=>'register_submit', :class =>'button'%>
+					</p>
+				<% end %>
+			</div>
 		<% else %>
 			<p id="confirm-message"><%= flash[:confirm]%></p>
 		<% end %>

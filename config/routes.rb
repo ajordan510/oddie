@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "live/sign_up"
   get "webrtc/test"
   get "splash/admin"
   #get 'splash/index'

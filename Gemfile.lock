@@ -86,7 +86,7 @@ GEM
       omniauth (~> 1.2)
     omniauth-shopify-oauth2 (1.1.7)
       omniauth-oauth2 (~> 1.1.1)
-    pg (0.17.1-x86-mingw32)
+    pg (0.17.1)
     polyglot (0.3.5)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -149,13 +149,12 @@ GEM
     turbolinks (2.2.2)
       coffee-rails
     tzinfo (0.3.41)
-    tzinfo-data (1.2013.8)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
 
 PLATFORMS
-  x86-mingw32
+  ruby
 
 DEPENDENCIES
   browser

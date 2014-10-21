@@ -4,7 +4,7 @@ class SplashController < ApplicationController
     #@js_file_to_include = ['jquery.final-countdown.js', 'jquery.final-countdown.min.js', 'kinetic.js']
   end
 
-  def create
+  def create 
     email = params[:splash_email_form][:splash_email]
     role = params[:role]
     if email == nil
@@ -16,7 +16,7 @@ class SplashController < ApplicationController
       else
         flash[:email_taken] = "Email has already been issued. thanks for being so enthusiastic!"
       end
-        flash[:confirm] = "Thank you for you interest.  We will keep you up to date on the SpectaFresh release."
+      flash[:confirm] = "Thank you for you interest.  We will keep you up to date on the SpectaFresh release."
       redirect_to :controller => 'splash', :action => 'index' #give the option to send requests to other people
     end
   end    
