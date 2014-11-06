@@ -26,20 +26,22 @@ class LiveController < ApplicationController
     genre_DJ = params[:live_signup_form][:genre_DJ]
     genre_other = params[:live_signup_form][:genre_other]
     description = params[:live_signup_form][:description]
+    terms_conditions = params[:live_signup_form][:terms_conditions]
     @photo_name = params[:live_signup_form][:upload_photo].original_filename
     path_for_upload = File.join(Rails.root.to_s+"/public/images",@photo_name)
-    #File.open(path_for_upload, "wb"){|fff| fff.write(params[:live_signup_form][:upload_photo].read)} 
-    #id = params[:id]
-    @new_live_user = LiveUser.create(:email => email, :nickname => nickname, :password => pass, 
+    File.open(path_for_upload, "wb"){|fff| fff.write(params[:live_signup_form][:upload_photo].read)} 
+    id = params[:id]
+    @new_live_user = User.create(:email => email, :nickname => nickname, :password => pass, 
     	:password_confirmation => pass_conf, :age => age, :performer => performer, 
     	:genre_comedian => genre_comedian, :genre_singer => genre_singer, :genre_musician => genre_musician,
     	:genre_dancer => genre_dancer, :genre_actor => genre_actor, :genre_speaker => genre_speaker, 
-    	:genre_DJ => genre_DJ, :genre_other => genre_other, :description => description, :photo => photo)
+    	:genre_DJ => genre_DJ, :genre_other => genre_other, :description => description, :photo_name => @photo_name,
+        :terms_conditions => terms_conditions)
 
     	if @new_live_user.valid?
-    		redirect_to :controller => 'live', :action => 'index'
+    		redirect_to :controller => 'live', :action => 'sign_up'
     	else
-    		render :action => new
+    		render :action => "sign_up"
     	end
    end
   

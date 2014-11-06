@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807003250) do
+ActiveRecord::Schema.define(version: 20141022021931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,28 @@ ActiveRecord::Schema.define(version: 20140807003250) do
   create_table "splash_users", force: true do |t|
     t.text     "email"
     t.text     "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.text     "email"
+    t.text     "nickname"
+    t.text     "password"
+    t.text     "password_confirmation"
+    t.text     "age"
+    t.string   "photo_name"
+    t.text     "performer"
+    t.text     "genre_comedian"
+    t.text     "genre_singer"
+    t.text     "genre_musician"
+    t.text     "genre_dancer"
+    t.text     "genre_actor"
+    t.text     "genre_speaker"
+    t.text     "genre_DJ"
+    t.text     "genre_other"
+    t.text     "description"
+    t.text     "terms_conditions"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

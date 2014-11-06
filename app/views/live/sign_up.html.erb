@@ -10,7 +10,7 @@
 			<% if @new_live_user.nil? %>
 			<% else %>
 				<ol class = "error_mess_reg">
-					<% new_live_user.errors.full_messages.each do |msg| %>
+					<% @new_live_user.errors.full_messages.each do |msg| %>
 					<li > <%= msg %></li>
 					<% end %>
 				</ol>
@@ -55,11 +55,11 @@
 			</h3>
 			<p>
 				<%= radio_button_tag(:performer, "yes") %>
-				<%= label_tag(:performer_option_yes,"Yes") %>
+				<%= label_tag(:performer_yes,"Yes") %>
 				<%= radio_button_tag(:performer, "no") %>
-				<%= label_tag(:performer_option_no,"No") %>
+				<%= label_tag(:performer_no,"No") %>
 				<%= radio_button_tag(:performer, "yes") %>
-				<%= label_tag(:performer_option_yes,"Maybe") %>
+				<%= label_tag(:performer_maybe,"Maybe") %>
 			</p>
 			<!--FOLLOWING FIELDS ACTIVATED IF YES/MAYBE TO PERFORMER -->
 
@@ -99,8 +99,8 @@
 			</p>
 
 			<p>
-				<%= check_box_tag(:terms_conitions, "acceptance") %>
-				<%= label_tag(:genre_other_tag, "I accept terms and conditions.") %>
+				<%= check_box_tag(:terms_conditions, "acceptance") %>
+				<%= label_tag(:tc_tag, "I accept terms and conditions.") %>
 			</p>
 			<!-- SUBMIT BUTTON -->
 			<p>

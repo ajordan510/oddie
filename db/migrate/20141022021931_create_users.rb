@@ -1,18 +1,7 @@
-class CreateLiveUsers < ActiveRecord::Migration
-  #set the things we want to validate
-  validates :email, :nickname, :password_confirmation, :performer, :presence =>true
-  validates :description, presence: true, if: :performer_yes?
-  validates :email, :uniqueness => true
-  validates :password, :confirmation => true
-  validates :terms_conditions, :presence => true
-  #add a validate that checks that at least one genre is picked if they are indeed a performer
-  def performer_yes?
-    performer == "yes"
-  end
-
+class CreateUsers < ActiveRecord::Migration
   def change
-    create_table :live_users do |t|
-      #bool: y/n, 
+    create_table :users do |t|
+    	      #bool: y/n, 
       t.text :email
       t.text :nickname
       t.text :password
@@ -29,7 +18,7 @@ class CreateLiveUsers < ActiveRecord::Migration
       t.text :genre_DJ
       t.text :genre_other
       t.text :description
-      t.integer :id
+#      t.integer :id
       t.text :terms_conditions
       #t.text :gender
       #t.text :city
