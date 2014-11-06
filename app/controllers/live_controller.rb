@@ -16,17 +16,17 @@ class LiveController < ApplicationController
     pass = params[:live_signup_form][:password]   #done
     pass_conf = params[:live_signup_form][:password_confirmation]
     age = params[:live_signup_form][:age]   #radio button above or below 18
-    performer = params[:live_signup_form][:performer]
-    genre_comedian = params[:live_signup_form][:genre_comedian ]
-    genre_singer = params[:live_signup_form][:genre_singer]
-    genre_musician = params[:live_signup_form][:genre_musician]
-    genre_dancer = params[:live_signup_form][:genre_dancer]
-    genre_actor = params[:live_signup_form][:genre_actor]
-    genre_speaker = params[:live_signup_form][:genre_speaker]
-    genre_DJ = params[:live_signup_form][:genre_DJ]
-    genre_other = params[:live_signup_form][:genre_other]
+    performer = params[:performer] #--not finding?
+    genre_comedian = params[:genre_comedian ]
+    genre_singer = params[:genre_singer]
+    genre_musician = params[:genre_musician]
+    genre_dancer = params[:genre_dancer]
+    genre_actor = params[:genre_actor]
+    genre_speaker = params[:genre_speaker]
+    genre_DJ = params[:genre_DJ]
+    genre_other = params[:genre_other]
     description = params[:live_signup_form][:description]
-    terms_conditions = params[:live_signup_form][:terms_conditions]
+    terms_conditions = params[:terms_conditions]
     @photo_name = params[:live_signup_form][:upload_photo].original_filename
     path_for_upload = File.join(Rails.root.to_s+"/public/images",@photo_name)
     File.open(path_for_upload, "wb"){|fff| fff.write(params[:live_signup_form][:upload_photo].read)} 

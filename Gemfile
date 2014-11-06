@@ -35,6 +35,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'opentok', '~> 2.2.3' #this is a gem for webRTC opentok SDK/API
+
 gem 'rails_12factor', group: :production
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
@@ -47,6 +49,11 @@ gem 'rails_12factor', group: :production
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-ruby "2.1.3"
+
+#FOR KAREEM
+#ruby "2.1.3"
+
+#FOR ALEX
+ruby "1.9.3"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
