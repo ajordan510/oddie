@@ -4,8 +4,6 @@ class CreateUsers < ActiveRecord::Migration
     	      #bool: y/n, 
       t.text :email
       t.text :nickname
-      t.text :password
-      t.text :password_confirmation
       t.text :age    #??
       t.string :photo_name
       t.text :performer
