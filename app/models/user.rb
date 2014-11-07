@@ -15,14 +15,15 @@ class User < ActiveRecord::Base
 		@pass_virt_at #get the virtual atribute for password
 	end
 
-	def password_valid?(input_password) #return a boolean true or false after checking
-	  	salted = self.salt.to_s
-	  	if input_password.nil? #did they send in a password?
-	  		errors.add(:user, "No password given")
-	  	elsif self.password_digest == Digest::SHA1.hexdigest(input_password+salted)
-	  		return true #password and confirmation matched
-	  	else
-	  		errors.add(:user, "Incorrect Username/Password Combination") #add in a new error
+	def password_valid?(input_password) #return boolean true or false after checking
+		salted = @logged_in_user.salt.to_s
+		#salted = self.salt.to_s
+		if input_password.nil? #did they send in a password
+			errors.add(:user, "Password was not input")
+		elsif self.password_digest == Digest::SHA1.hexdigest(input_password+salted)
+			return true #return the boolean saying they matched
+		else
+			errors.add(:user, "Incorrect Username/Password Combination") #add in a new error
 			return false #set the boolean to false
 		end
 	end

@@ -1,14 +1,30 @@
-
-
 class LiveController < ApplicationController
-  def index
-    @title = 'SpectaFresh'
-    #@js_file_to_include = ['jquery.final-countdown.js', 'jquery.final-countdown.min.js', 'kinetic.js']
-  end
+    def index
+        @title = 'SpectaFresh'
+    end
 
-  def new
-  	@title = 'New User'
-  end
+    def login #page where the user can log in
+        @title = 'Log In'
+    end
+
+    def post_login #comes here after they submit their log in
+        @logged_in_user = User.find_by_email(params[:login_val]) #find the current user
+        password_in = params[:pass_val]
+        if @logged_in_user.nil?
+            flash[:bad_login] = "did not find in database"#{}"Username/Password Combination is not valid"
+            render :action => :login
+        else
+            if @logged_in_user.password_valid?(password_in)
+                @logged_in_id = @logged_in_user.id 
+                session[:first_name] = @logged_in_user.first_name 
+                session[:user_id]   = @logged_in_id
+                redirect_to :controller => 'live', :action =>'dashboard', :id=> @logged_in_id.to_s()
+            else
+                flash[:bad_login] = "password did not match"
+                render :action => :login #send back to a new page to update - render to keep errors
+            end
+        end
+    end
 
     def create 
         email = params[:live_signup_form][:email]  #done
@@ -36,20 +52,11 @@ class LiveController < ApplicationController
         	:genre_dancer => genre_dancer, :genre_actor => genre_actor, :genre_speaker => genre_speaker, 
         	:genre_DJ => genre_DJ, :genre_other => genre_other, :description => description, :photo_name => @photo_name,
             :terms_conditions => terms_conditions, :password => pass, :password_confirmation => pass_conf)
-
         if @new_live_user.valid?
         	redirect_to :controller => 'live', :action => 'sign_up'
         else
         	render :action => "sign_up"
         end
    end
-  
- # def admin
- #   @title = 'SpectaFresh - Admin'
- #   @users = SplashUser.find(:all)
- #  @performers = SplashUser.find(:all, :conditions => {:role => "performer"})
- #   @audience = SplashUser.find(:all, :conditions => {:role => "audience"})
- #   @both = SplashUser.find(:all, :conditions => {:role => "both"})
- # end
 
 end
