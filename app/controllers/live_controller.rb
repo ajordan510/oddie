@@ -39,7 +39,7 @@ class LiveController < ApplicationController
         :terms_conditions => terms_conditions)
 
     	if @new_live_user.valid?
-    		redirect_to :controller => 'live', :action => 'sign_up'
+    		redirect_to :controller => 'splash', :action => 'index'
     	else
     		render :action => "sign_up"
     	end
