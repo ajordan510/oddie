@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
 	validates :password, :confirmation => true
 
 	#add a validate that checks that at least one genre is picked if they are indeed a performer
-	def performer_yes?
-	  performer == "yes"
-	end
+	#def performer_yes?
+	#  performer == "yes"
+	#end
 
 	  #---- add in code to encrypyt/salt/validate password ---- #
 	def password
@@ -16,8 +16,7 @@ class User < ActiveRecord::Base
 	end
 
 	def password_valid?(input_password) #return boolean true or false after checking
-		salted = @logged_in_user.salt.to_s
-		#salted = self.salt.to_s
+		salted = self.salt.to_s
 		if input_password.nil? #did they send in a password
 			errors.add(:user, "Password was not input")
 		elsif self.password_digest == Digest::SHA1.hexdigest(input_password+salted)

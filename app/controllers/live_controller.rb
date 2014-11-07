@@ -16,7 +16,6 @@ class LiveController < ApplicationController
         else
             if @logged_in_user.password_valid?(password_in)
                 @logged_in_id = @logged_in_user.id 
-                session[:first_name] = @logged_in_user.first_name 
                 session[:user_id]   = @logged_in_id
                 redirect_to :controller => 'live', :action =>'dashboard', :id=> @logged_in_id.to_s()
             else
