@@ -25,13 +25,7 @@ class LiveController < ApplicationController
         end
     end
 
-<<<<<<< HEAD
-    	if @new_live_user.valid?
-    		redirect_to :controller => 'splash', :action => 'index'
-    	else
-    		render :action => "sign_up"
-    	end
-=======
+
     def create 
         email = params[:live_signup_form][:email]  #done
         nickname = params[:live_signup_form][:nickname]  #done
@@ -59,11 +53,20 @@ class LiveController < ApplicationController
         	:genre_DJ => genre_DJ, :genre_other => genre_other, :description => description, :photo_name => @photo_name,
             :terms_conditions => terms_conditions, :password => pass, :password_confirmation => pass_conf)
         if @new_live_user.valid?
-        	redirect_to :controller => 'live', :action => 'sign_up'
+        	redirect_to :controller => 'live', :action => 'dashboardnew'
         else
         	render :action => "sign_up"
         end
->>>>>>> 6520be6181cce19274ed9caee016ab425344d062
+
+   end
+
+   def redirect_signup
+        redirect_to :controller => 'live', :action => 'sign_up'
+   end
+
+
+   def redirect_login
+        redirect_to :controller => 'live', :action => 'login'
    end
 
 end
