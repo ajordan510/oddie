@@ -8,21 +8,18 @@ class LiveController < ApplicationController
     end
 
     def post_login #comes here after they submit their log in
-        @logged_in_user = User.find_by_email(params[:login_val]) #find the current user
-        password_in = params[:pass_val]
-        if @logged_in_user.nil?
-            flash[:bad_login] = "did not find in database"#{}"Username/Password Combination is not valid"
-            render :action => :login
+        user = User.authenticate(params[:login_val], params[:pass_val])
+        if user
+            session[:user_id] = user.id
+            redirect_to :controller => 'live', :action => 'dashboard', :notice => "Logged In!"
         else
-            if @logged_in_user.password_valid?(password_in)
-                @logged_in_id = @logged_in_user.id 
-                session[:user_id]   = @logged_in_id
-                redirect_to :controller => 'live', :action =>'dashboard', :id=> @logged_in_id.to_s()
-            else
-                flash[:bad_login] = "password did not match"
-                render :action => :login #send back to a new page to update - render to keep errors
-            end
+            flash[:bad_login]  = "Invalid email or password"
+            render "login"
         end
+    end
+
+    def dashboard
+        @title = 'Dashboard'
     end
 
 
@@ -47,12 +44,12 @@ class LiveController < ApplicationController
         path_for_upload = File.join(Rails.root.to_s+"/public/images",@photo_name)
         File.open(path_for_upload, "wb"){|fff| fff.write(params[:live_signup_form][:upload_photo].read)} 
         id = params[:id]
-        @new_live_user = User.create(:email => email, :nickname => nickname, :age => age, :performer => performer, 
+        @new_live_user = User.new(:email => email, :nickname => nickname, :age => age, :performer => performer, 
         	:genre_comedian => genre_comedian, :genre_singer => genre_singer, :genre_musician => genre_musician,
         	:genre_dancer => genre_dancer, :genre_actor => genre_actor, :genre_speaker => genre_speaker, 
         	:genre_DJ => genre_DJ, :genre_other => genre_other, :description => description, :photo_name => @photo_name,
             :terms_conditions => terms_conditions, :password => pass, :password_confirmation => pass_conf)
-        if @new_live_user.valid?
+        if @new_live_user.save
         	redirect_to :controller => 'live', :action => 'dashboardnew'
         else
         	render :action => "sign_up"
