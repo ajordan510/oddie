@@ -1,1 +1,45 @@
-<p> Log in succesfful... </p>
+<!-- main body for signup page -->
+<div id="header">
+	<script type="text/javascript">
+		console.log('here')
+			$(document).ready( function() {
+			    $('.subMenu').smint();
+			});
+	</script>
+
+	
+	<h1 id="header-text">SpectaFresh</h1>
+	<h3 class="subtext"> Welcome <%= User.find(session[:user_id]).nickname %>! </h3>
+	
+
+	<h2> Your Pic:</h2>
+	<img src=/public/images/<%=User.find(session[:user_id]).photo_name %> style="width:304px;height:228px"/>
+
+
+
+	<p><br/></p>
+
+
+	<!--<div class="logo-section">
+		<button id="signup_button">Sign up today!</button>
+	</div> -->
+
+
+	
+	<h2> Sign up for a performance time slot! </h2>
+
+	<h3 class="subtext"> Upcoming Performances: </h3>
+	<p><br/></p>
+	<p> (INSERT TABLE HERE) </p>
+	<a class = "link-button" href="/live/register_performance"> 
+		Example time slot </a>
+		<!--may need to pass in a redirect parameter for the slot's time stamp -->
+	<p><br/></p>
+	
+
+	<a class = "link-button" href="/live/logout"> 
+		Sign out.
+	</a>
+
+
+</div>

@@ -1,0 +1,74 @@
+<!-- main body for the register performance page -->
+<% if flash[:confirm_performance] == nil%>
+		
+		<!--Display time/date info for performance -->
+
+		<div class="form-box">
+
+			<% if @new_registered_performance.nil? %>
+			<% else %>
+				<ol class = "error_mess_reg">
+					<% @new_registered_performance.errors.full_messages.each do |msg| %>
+					<li > <%= msg %></li>
+					<% end %>
+				</ol>
+				<% end %>
+			<%= form_for(:register_performance_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create_performance"}) do |form| %>
+
+			<!-- PERFORMANCE GENRE -->
+			<h3 class="subtext">
+				Type of Performance (please choose one):
+			</h3>
+			<p>
+				<%= radio_button_tag(:genre, "comedy") %>
+				<%= label_tag(:genre,"Comedy") %>
+	
+				<%= radio_button_tag(:genre, "song") %>
+				<%= label_tag(:genre,"Song") %>
+
+				<%= radio_button_tag(:genre, "music") %>
+				<%= label_tag(:genre,"Music") %>
+
+				<%= radio_button_tag(:genre, "dance") %>
+				<%= label_tag(:genre,"Dance") %>
+
+				<%= radio_button_tag(:genre, "acting") %>
+				<%= label_tag(:genre,"Acting / Monologue") %>
+
+				<%= radio_button_tag(:genre, "speech") %>
+				<%= label_tag(:genre,"Lecture / Talk") %>
+
+				<%= radio_button_tag(:genre, "DJ") %>
+				<%= label_tag(:genre,"DJ") %>
+
+				<%= radio_button_tag(:genre, "other") %>
+				<%= label_tag(:genre,"Other") %>
+			</p>
+
+
+
+			<!-- PERFORMANCE TITLE -->
+			<p>
+				<%= form.label :Title_of_Performance %>
+				<%= form.text_field :title, :class =>'search-input', :placeholder =>"ex. 'The Funniest Show on Earth'"%><br/>
+			</p>
+
+			<!-- PERFORMANCE DESCRIPTION -->
+			<p>
+				<%= form.label :Description_of_Performance %>
+				<%= form.text_area :description, :class =>'search-input', :placeholder =>"Your Performance Description"%><br/>
+			</p>
+			
+			<!-- SUBMIT BUTTON -->
+			<p>
+					<%= form.submit "Register Performance", :id=>'register_submit', :class =>'button'%>
+					<p id="confirm-message"><%= flash[:confirm_performance]%></p>
+			</p>
+			<% end %>
+	</div>
+	
+	<!--CHANGE THIS TO BE FOR AN ERROR -->
+	<% else %>
+			<p id="confirm-message"><%= flash[:confirm_performance]%></p>
+	<% end %> 
+</div>
