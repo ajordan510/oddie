@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- main body for signup page -->
 <div id="header">
 	<script type="text/javascript">
@@ -52,3 +53,67 @@
 
 
 </div>
+=======
+<h2> Dashboard</h2>
+
+
+
+<!-- ______________________SCHEDULER HTML________________________ -->
+<!-- DateTime.today + n.seconds -->
+<!-- DateTime.today + n.minutes -->
+<!-- DateTime.today + n.hours   -->
+<!-- DateTime.today + n.days    -->
+<!-- DateTime.today + n.weeks   -->
+<!-- DateTime.today + n.months  -->
+<!-- DateTime.today + n.years   -->
+<!-- DateTime.today.cwday       -->
+
+
+
+<% counter = 0 %>
+<% c2 = 0 %>
+<p>
+	The current local date and time is: 
+</p>
+<p>
+	<%= @today_datetime.strftime("%l:%M %p   %A, %B %l, %Y") %>
+</p>
+<table style="border: 1px solid black;">
+	<% @days_of_week.each do |day| %>
+	<tr>
+		<td style="border: 1px solid black;">
+			<%= day %>
+		</td>
+		<td style="border: 1px solid black;">
+			<%= @specific_dates[c2].month %>/<%= @specific_dates[c2].day %>
+		</td>
+		<% for j in 0..@num_shows_a_day %>
+			<td style="border: 1px solid black;">
+				<!-- now we display based on (1) is the slot already passed? (2) is the slot already taken? or (3) is the slot available? -->
+				<% if @table_status[counter] == "available" %>
+					<%= link_to @table_slots[counter].strftime("%l:%M %p"), {:controller => "live", :action => "register_performance", :perf_date => @table_slots[counter]}  %>
+				<% elsif @table_status[counter] == "expired" %>	
+					<%= @table_slots[counter].strftime("%l:%M %p") %>
+					<!-- if the date is in the past then grey out -->
+				<% else %>	
+					<!-- will need to coordinate with data -->
+				<% end %>
+			</td>
+			<% counter = counter+1 %>
+		<% end %>
+	</tr>
+	<% c2 = c2 + 1 %>
+	<% end %>
+</table>
+
+
+
+<ol>
+<% @table_slots.each do |slot| %>
+	<li><%= slot %></li>
+<% end %>
+</ol>
+
+
+<!-- ____________________END_SCHEDULER HTML_______________________ -->
+>>>>>>> 4b6f9f0065107e29c0a51f1ad3af7d66e1cb4b74
