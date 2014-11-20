@@ -59,7 +59,7 @@ class LiveController < ApplicationController
 
    end
 
-<<<<<<< HEAD
+
    def create_performance
         #need to pass in timestamp, userid, and active flag
         #timestamp = ???
@@ -77,7 +77,7 @@ class LiveController < ApplicationController
         else
             #need to add some error handling here?
             render :action => "dashboard"
-=======
+
    # THIS IS AN ALEX DEFINED METHOD THAT IS TO BE CALLED FORM THE DASHBOARD INDEX 
    def scheduler_dates
         #allow variables to be accessible in the dashboard controller by adding "@" before the variable name -- always include, not just at create
@@ -128,7 +128,7 @@ class LiveController < ApplicationController
         @specific_dates = [];
         @days_of_week_integer.each do |dd|
             @specific_dates << @table_slots[0].next_week - (8-dd).days
->>>>>>> 4b6f9f0065107e29c0a51f1ad3af7d66e1cb4b74
+
         end
 
         @week_slots = [];
