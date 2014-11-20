@@ -90,7 +90,7 @@
 		<% for j in 0..@num_shows_a_day %>
 			<td style="border: 1px solid black;">
 				<!-- now we display based on (1) is the slot already passed? (2) is the slot already taken? or (3) is the slot available? -->
-				<% if @table_status[counter] == "available" %>
+				<% if 1==1%> <!-- @table_status[counter] == "available" %> -->
 					<%= link_to @table_slots[counter].strftime("%l:%M %p"), {:controller => "live", :action => "register_performance", :perf_date => @table_slots[counter]}  %>
 				<% elsif @table_status[counter] == "expired" %>	
 					<%= @table_slots[counter].strftime("%l:%M %p") %>

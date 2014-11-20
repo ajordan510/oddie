@@ -51,9 +51,9 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 # gem 'debugger', group: [:development, :test]
 
 #FOR KAREEM
-ruby "2.1.3"
+#ruby "2.1.3"
 
 #FOR ALEX
-#ruby "1.9.3"
+ruby "1.9.3"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin]
