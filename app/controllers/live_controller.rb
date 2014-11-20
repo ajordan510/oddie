@@ -84,6 +84,7 @@ class LiveController < ApplicationController
             :title => title, :description => description, :active_flag => 'yes')
         if @new_registered_performance.save
             flash[:confirm_performance] = "Your performance has been registered. Good luck!"
+            session[:performance_id] = performance.id
             redirect_to :controller => 'live', :action => 'dashboard'
         else
             #need to add some error handling here?

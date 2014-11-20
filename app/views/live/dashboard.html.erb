@@ -11,11 +11,20 @@
 	<h1 id="header-text">SpectaFresh</h1>
 	<h3 class="subtext"> Welcome <%= User.find(session[:user_id]).nickname %>! </h3>
 	
+	<!-- need to work on editing option -->
+	<h2> Your Profile (as it appears to others):</h2>
+	<p> <%=User.find(session[:user_id]).nickname %> </p>
+	
 
-	<h2> Your Pic:</h2>
+	<!--insert logic to display if they are a performer -->
+	<p> "<%=User.find(session[:user_id]).description %>" </p>
+
 	<img src=/public/images/<%=User.find(session[:user_id]).photo_name %> style="width:304px;height:228px"/>
 
+	<p> Your upcoming performances: </p>
 
+	<!-- find last entry in performance database wit current user id, and if the performance is active then display its credentials -->
+	
 
 	<p><br/></p>
 
