@@ -1,57 +1,51 @@
 
-<!-- main body for signup page -->
-<div id="header">
-	<script type="text/javascript">
-		console.log('here')
-			$(document).ready( function() {
-			    $('.subMenu').smint();
-			});
-	</script>
-
-	
-	<h1 id="header-text">SpectaFresh</h1>
+<h1 id="header-text">SpectaFresh</h1>
 	<h3 class="subtext"> Welcome <%= User.find(session[:user_id]).nickname %>! </h3>
+	<a class = "link-button" href="/live/logout"> 
+		Sign out.
+	</a>
 	
 	<!-- need to work on editing option -->
 	<h2> Your Profile (as it appears to others):</h2>
 	<p> <%=User.find(session[:user_id]).nickname %> </p>
 	
 
-	<!--insert logic to display if they are a performer -->
 	<p> "<%=User.find(session[:user_id]).description %>" </p>
 
-	<img src=/public/images/<%=User.find(session[:user_id]).photo_name %> style="width:304px;height:228px"/>
+	<!--insert logic to display if they are a performer -->
+	<p> <% if User.find(session[:user_id]).performer = "yes" %>
+		This user is a PERFORMER!
+		<%end%>
+	</p>
 
-	<p> Your upcoming performances: </p>
-
-	<!-- find last entry in performance database wit current user id, and if the performance is active then display its credentials -->
+	<% user_image = User.find(session[:user_id]).photo_name %> 
+	<%= image_tag "/assets/"+user_image, height: '200' %>
 	
-
-	<p><br/></p>
-
-
-	<!--<div class="logo-section">
-		<button id="signup_button">Sign up today!</button>
-	</div> -->
-
-
-	
+	<% if Performance.find_by_user_id(session[:user_id]) == nil %>
+		<h4> Get started by signing up for a performance </h4>
+	<% else %>	
+			<p> <h4>Your upcoming performances:  </h4>
+			<% if Performance.find(:last, :user_id == User.find(session[:user_id]).id).active_flag = "yes" %>
+				<p>
+				Title: "<%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).title %>"
+				</p>
+				<p>
+				Genre: <%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).genre %>
+				</p>
+				<p>
+				Description: "<%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).description %>"
+				</p>
+				<p>
+				Performance Time: "<%= Performance.find_by_user_id(session[:user_id]).hour %>:<%= Performance.find_by_user_id(session[:user_id]).minute %> <%= Performance.find_by_user_id(session[:user_id]).month %>/<%= Performance.find_by_user_id(session[:user_id]).day %>""
+				</p>
+			<% end %>
+			</p> 
+	<% end %>
 	<h2> Sign up for a performance time slot! </h2>
 
-	<h3 class="subtext"> Upcoming Performances: </h3>
+
+
 	<p><br/></p>
-	<p> (INSERT TABLE HERE) </p>
-	<a class = "link-button" href="/live/register_performance"> 
-		Example time slot </a>
-		<!--may need to pass in a redirect parameter for the slot's time stamp -->
-	<p><br/></p>
-	
-
-	<a class = "link-button" href="/live/logout"> 
-		Sign out.
-	</a>
-
-
 </div>
 
 
@@ -68,16 +62,8 @@
 <!-- DateTime.today + n.years   -->
 <!-- DateTime.today.cwday       -->
 
-
-
 <% counter = 0 %>
 <% c2 = 0 %>
-<p>
-	The current local date and time is: 
-</p>
-<p>
-	<%= @today_datetime.strftime("%l:%M %p   %A, %B %l, %Y") %>
-</p>
 <table style="border: 1px solid black;">
 	<% @days_of_week.each do |day| %>
 	<tr>
@@ -90,12 +76,15 @@
 		<% for j in 0..@num_shows_a_day %>
 			<td style="border: 1px solid black;">
 				<!-- now we display based on (1) is the slot already passed? (2) is the slot already taken? or (3) is the slot available? -->
-				<% if 1==1%> <!-- @table_status[counter] == "available" %> -->
-					<%= link_to @table_slots[counter].strftime("%l:%M %p"), {:controller => "live", :action => "register_performance", :perf_date => @table_slots[counter]}  %>
-				<% elsif @table_status[counter] == "expired" %>	
-					<%= @table_slots[counter].strftime("%l:%M %p") %>
+				<% if @specific_dates[c2].to_date < @today_datetime.to_date %> <!-- first compare the dates -->
+					<% combined_time = @specific_dates[c2].strftime('%k%M') %>
+					<% combined_current_time = @today_datetime.strftime('%k%M') %>
+					<% if combined_time < combined_current_time %> <!-- then compare the times -->
+						<%= @table_slots[counter].strftime("%l:%M %p") %>
+					<% end %>
 					<!-- if the date is in the past then grey out -->
 				<% else %>	
+					<%= link_to @table_slots[counter].strftime("%l:%M %p"), {:controller => "live", :action => "register_performance", :month => @specific_dates[c2].month, :day => @specific_dates[c2].day, :year => @specific_dates[c2].year, :hour => @specific_dates[c2].hour, :minute => @specific_dates[c2].minute}  %>
 					<!-- will need to coordinate with data -->
 				<% end %>
 			</td>
@@ -108,7 +97,7 @@
 
 
 
-<ol>
+ <ol>
 <% @table_slots.each do |slot| %>
 	<li><%= slot %></li>
 <% end %>

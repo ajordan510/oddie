@@ -53,6 +53,16 @@
 				<%= form.text_field :title, :class =>'search-input', :placeholder =>"ex. 'The Funniest Show on Earth'"%><br/>
 			</p>
 
+
+			<!-- Test for the date -->
+		<input type="hidden" name="month" value=<%=params[:month]%> />
+		<input type="hidden" name="day" value=<%=params[:day]%> />
+		<input type="hidden" name="year" value=<%=params[:year]%> />
+		<input type="hidden" name="hour" value=<%=params[:hour]%> />
+		<input type="hidden" name="minute" value=<%=params[:minute]%> />
+
+		
+
 			<!-- PERFORMANCE DESCRIPTION -->
 			<p>
 				<%= form.label :Description_of_Performance %>
