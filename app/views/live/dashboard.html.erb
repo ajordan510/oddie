@@ -4,43 +4,179 @@
 	<a class = "link-button" href="/live/logout"> 
 		Sign out.
 	</a>
-	
-	<!-- need to work on editing option -->
-	<h2> Your Profile (as it appears to others):</h2>
-	<p> <%=User.find(session[:user_id]).nickname %> </p>
-	
+	<!-- STATIC DISPLAY OF PROFILE -->
+	<div id="static_profile" style="border: 1px solid black; width: 50%; padding-left: 5%;">
+		<!-- need to work on editing option -->
+		<h2> Your Profile (static option):</h2>
+		<div id="edit_profile_div" style="color: blue; cursor: pointer;" onclick="close_static_div()">edit profile</div>
+		<script>
+			function close_static_div() {
+    		document.getElementById("static_profile").style.display = "none";
+    		document.getElementById("edit_profile").style.display = "block";
+}
+		</script>
+		<p> <%=User.find(session[:user_id]).nickname %> </p>
+		
 
-	<p> "<%=User.find(session[:user_id]).description %>" </p>
+		<p> "<%=User.find(session[:user_id]).description %>" </p>
 
-	<!--insert logic to display if they are a performer -->
-	<p> <% if User.find(session[:user_id]).performer = "yes" %>
-		This user is a PERFORMER!
-		<%end%>
-	</p>
+		<!--insert logic to display if they are a performer -->
+		<p> <% if User.find(session[:user_id]).performer = "yes" %>
+			This user is a PERFORMER!
+			<%end%>
+		</p>
 
-	<% user_image = User.find(session[:user_id]).photo_name %> 
-	<%= image_tag "/assets/"+user_image, height: '200' %>
-	
-	<% if Performance.find_by_user_id(session[:user_id]) == nil %>
-		<h4> Get started by signing up for a performance </h4>
-	<% else %>	
-			<p> <h4>Your upcoming performances:  </h4>
-			<% if Performance.find(:last, :user_id == User.find(session[:user_id]).id).active_flag = "yes" %>
+		<% user_image = User.find(session[:user_id]).photo_name %> 
+		<%= image_tag "/assets/"+user_image, height: '200' %>
+		
+		<% if Performance.find_by_user_id(session[:user_id]) == nil %>
+			<h4> Get started by signing up for a performance </h4>
+		<% else %>	
+				<p> <h4>Your upcoming performances:  </h4>
+				<% if Performance.find(:last, :user_id == User.find(session[:user_id]).id).active_flag = "yes" %>
+					<p>
+					Title: "<%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).title %>"
+					</p>
+					<p>
+					Genre: <%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).genre %>
+					</p>
+					<p>
+					Description: "<%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).description %>"
+					</p>
+					<p>
+					Performance Time: "<%= @sched_performance.strftime('%l:%M on %m/%e') %>""
+					</p>
+				<% end %>
+				</p> 
+		<% end %>
+	</div>
+
+
+	<!-- EDIT DISPLAY OF PROFILE -->
+	<div id="edit_profile" style="border: 1px solid black; width: 50%;  padding-left: 5%;  display: none; ">
+		<!-- need to work on editing option -->
+		<h2> Your Profile (edit option):</h2>
+		<%= form_for(:update_user_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"update_user"}, :method => :POST) do |user_form| %>
+			<div class="upload-preview">
+    		<img id='preview_image'/>
+			</div>
+			<% user_image = User.find(session[:user_id]).photo_name %> 
+			<%= image_tag "/assets/"+user_image, height: '200', :id => 'original_image'%>
+			<p>
+				<label for="upload_photo">Choose new picture</label>:
+				<%= user_form.file_field(:upload_photo, class: 'file') %> <br/>
+			</p>
+			<p>
+				<%= user_form.label :Nickname %>
+				<%= user_form.text_field :nickname, :value => @user.nickname%><br/>
+			</p>
+			<p>
+				<%= user_form.label :Age %>
+				<%= user_form.select :age, [['10-15','10to15'],['15-20','15to20'],['20-25','20to25'],['25-30','25to30'],['30-35','35to40'],['40+','40plus']], :selected  => @user.age %>
+			</p>
+			<p>
+				<% if @user.performer == 'yes' %>
+					<%= radio_button_tag(:performer, "yes", true, :onclick => "show_checks();") %>
+					<%= label_tag(:performer_yes,"Yes") %>
+					<%= radio_button_tag(:performer, "no", false, :onclick => "unshow_checks();") %>
+					<%= label_tag(:performer_no,"No") %>
+				<% else %>
+					<%= radio_button_tag(:performer, "yes", false, :onclick => "show_checks();") %>
+					<%= label_tag(:performer_yes,"Yes") %>
+					<%= radio_button_tag(:performer, "no", true, :onclick => "unshow_checks();") %>
+					<%= label_tag(:performer_no,"No") %>
+				<% end %>
+			</p>
+			<script>
+			function unshow_checks() {
+    			document.getElementById("type_checkboxes").style.display = "none";
+    			console.log('in_unshow')
+    		}
+    		</script>
+    		<script>
+    		function show_checks(){
+    			document.getElementById("type_checkboxes").style.display = "block";
+    			console.log('in_show')
+			}
+			</script>
+			<div id="type_checkboxes" style='display: <%=@is_performer%>'>
+				<h3 class="subtext">
+					I will be performing as a (choose any that apply):
+				</h3>
+
+				<!-- insert checkbox buttons-->
+				<% if User.find(session[:user_id]).genre_comedian != nil %>
+					<%= check_box_tag(:genre_comedian, "Comedian", true) %>
+				<% else %>
+					<%= check_box_tag(:genre_comedian, "Comedian", false) %>
+				<% end %>
+				<%= label_tag(:genre_comedian_tag, "Comedian") %>
+
+				<% if User.find(session[:user_id]).genre_singer != nil %>
+					<%= check_box_tag(:genre_singer, "Singer", true) %>
+				<% else %>
+					<%= check_box_tag(:genre_singer, "Singer", false) %>
+				<% end %>
+				<%= label_tag(:genre_singer_tag, "Singer") %>
+
+				<% if User.find(session[:user_id]).genre_musician != nil %>
+					<%= check_box_tag(:genre_musician, "Musician", true) %>
+				<% else %>
+					<%= check_box_tag(:genre_musician, "Musician", false) %>
+				<% end %>				
+				<%= label_tag(:genre_musician_tag, "Musician") %>
+
+				<% if User.find(session[:user_id]).genre_dancer != nil %>
+					<%= check_box_tag(:genre_dancer, "Dancer", true) %>
+				<% else %>
+					<%= check_box_tag(:genre_dancer, "Dancer", false) %>
+				<% end %>				
+				<%= label_tag(:genre_dancer_tag, "Dancer") %>
+
+				<% if User.find(session[:user_id]).genre_actor != nil %>
+					<%= check_box_tag(:genre_actor, "Actor", true) %>
+				<% else %>
+					<%= check_box_tag(:genre_actor, "Actor", false) %>
+				<% end %>					
+				<!--actor: monologues, improv sketches, etc.) -->
+				<%= label_tag(:genre_actor_tag, "Actor") %>
+
+				<% if User.find(session[:user_id]).genre_speaker != nil %>
+					<%= check_box_tag(:genre_speaker, "Speaker", true) %>
+				<% else %>
+					<%= check_box_tag(:genre_speaker, "Speaker", false) %>
+				<% end %>	
+				<%= label_tag(:genre_speaker_tag, "Speaker") %>
+				
+				<% if User.find(session[:user_id]).genre_DJ != nil %>
+					<%= check_box_tag(:genre_DJ, "DJ", true) %>
+				<% else %>
+					<%= check_box_tag(:genre_DJ, "DJ", false) %>
+				<% end %>	
+				<%= label_tag(:genre_DJ_tag, "DJ") %>
+
+				<% if User.find(session[:user_id]).genre_other != nil %>
+					<%= check_box_tag(:genre_other, "Other Talents", true) %>
+				<% else %>
+					<%= check_box_tag(:genre_other, "Other Talents", false) %>
+				<% end %>					
+					<%= label_tag(:genre_other_tag, "Other Talents") %>
+				<h3 class="subtext">
+					Description of typical performances:
+				</h3>
 				<p>
-				Title: "<%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).title %>"
+				<%= user_form.text_area :description, :class =>'search-input', :value => @user.description, :cols => '50' %><br/>
 				</p>
-				<p>
-				Genre: <%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).genre %>
-				</p>
-				<p>
-				Description: "<%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).description %>"
-				</p>
-				<p>
-				Performance Time: "<%= Performance.find_by_user_id(session[:user_id]).hour %>:<%= Performance.find_by_user_id(session[:user_id]).minute %> <%= Performance.find_by_user_id(session[:user_id]).month %>/<%= Performance.find_by_user_id(session[:user_id]).day %>""
-				</p>
+			</div>
+			<p>
+				<%= user_form.submit "Save Changes", :id=>'register_submit', :class =>'button'%>
+			</p>
 			<% end %>
-			</p> 
-	<% end %>
+		
+	</div>
+
+
+
 	<h2> Sign up for a performance time slot! </h2>
 
 
@@ -64,27 +200,47 @@
 
 <% counter = 0 %>
 <% c2 = 0 %>
+
 <table style="border: 1px solid black;">
-	<% @days_of_week.each do |day| %>
+	<tr> 
+		<td colspan=2 style="border: 1px solid black;">
+			Today 
+		</td>
+		<% if @equal_day_flag == 0 %>
+			<td colspan=<%=@num_shows_a_day+1%> style="border: 1px solid black;">
+				No shows today
+			</td>
+		<% else %>
+			<% for j in 0..@num_shows_a_day %>
+				<td style="border: 1px solid black;">
+					<% if @combined_time[counter] < @combined_current_time %>
+						<%= @specific_dates[counter].strftime("%l:%M %p") %>
+					<% else %>
+						<%= link_to @specific_dates[counter].strftime("%l:%M %p"), {:controller => "live", :action => "register_performance", :month => @specific_dates[counter].month, :day => @specific_dates[counter].day, :year => @specific_dates[counter].year, :hour => @specific_dates[counter].hour, :minute => @specific_dates[counter].minute}  %>
+					<% end %>
+				</td>
+				<% counter = counter+1 %>
+				<% end %>
+		<% end %>
+	</tr>
+	<% @days_of_week_integer.each do |day| %>
 	<tr>
 		<td style="border: 1px solid black;">
-			<%= day %>
+			<%= @specific_dates[counter].strftime('%A') %>
 		</td>
 		<td style="border: 1px solid black;">
-			<%= @specific_dates[c2].month %>/<%= @specific_dates[c2].day %>
+			<%= @specific_dates[counter].month %>/<%= @specific_dates[counter].day %>
 		</td>
 		<% for j in 0..@num_shows_a_day %>
 			<td style="border: 1px solid black;">
 				<!-- now we display based on (1) is the slot already passed? (2) is the slot already taken? or (3) is the slot available? -->
-				<% if @specific_dates[c2].to_date < @today_datetime.to_date %> <!-- first compare the dates -->
-					<% combined_time = @specific_dates[c2].strftime('%k%M') %>
-					<% combined_current_time = @today_datetime.strftime('%k%M') %>
-					<% if combined_time < combined_current_time %> <!-- then compare the times -->
-						<%= @table_slots[counter].strftime("%l:%M %p") %>
+				<% if @specific_dates[counter].to_date < @today_datetime.to_date %> <!-- first compare the dates -->
+					<% if @combined_time[counter] < @combined_current_time %> <!-- then compare the times -->
+						<%= @specific_dates[counter].strftime("%l:%M %p") %>
 					<% end %>
 					<!-- if the date is in the past then grey out -->
 				<% else %>	
-					<%= link_to @table_slots[counter].strftime("%l:%M %p"), {:controller => "live", :action => "register_performance", :month => @specific_dates[c2].month, :day => @specific_dates[c2].day, :year => @specific_dates[c2].year, :hour => @specific_dates[c2].hour, :minute => @specific_dates[c2].minute}  %>
+					<%= link_to @specific_dates[counter].strftime("%l:%M %p"), {:controller => "live", :action => "register_performance", :month => @specific_dates[counter].month, :day => @specific_dates[counter].day, :year => @specific_dates[counter].year, :hour => @specific_dates[counter].hour, :minute => @specific_dates[counter].minute}  %>
 					<!-- will need to coordinate with data -->
 				<% end %>
 			</td>
@@ -96,13 +252,12 @@
 </table>
 
 
-
- <ol>
-<% @table_slots.each do |slot| %>
+<!-- <ol>
+<% @specific_dates.each do |slot| %>
 	<li><%= slot %></li>
 <% end %>
 </ol>
-
+-->
 
 <!-- ____________________END_SCHEDULER HTML_______________________ -->
 

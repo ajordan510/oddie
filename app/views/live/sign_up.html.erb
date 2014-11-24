@@ -32,12 +32,12 @@
 			<!-- USER'S PASSWORD -->
 			<p>
 				<%= form.label :Password %>
-				<%= form.password_field :password, :class =>'search-input', :placeholder =>"password"%><br/>
+				<%= form.password_field :password, :placeholder =>"password"%><br/>
 			</p>
 
 			<p>
 				<%= form.label :Confirm_Password %>
-				<%= form.password_field :password_confirmation, :class =>'search-input', :placeholder =>"password"%><br/>
+				<%= form.password_field :password_confirmation, :placeholder =>"password"%><br/>
 			</p>
 
 
@@ -93,9 +93,12 @@
 				<%= form.text_area :description, :class =>'search-input', :placeholder =>"Your Performance Description"%><br/>
 			</p>
 			<!-- USER'S PHOTO -->
+			<div class="upload-preview">
+    			<img id='preview_image'/>
+			</div>
 			<p>
 				<%= form.label :Profile_Photo %>
-				<%= form.file_field(:upload_photo) %> <br/>
+				<%= form.file_field(:upload_photo, class: 'file') %> <br/>
 			</p>
 
 			<p>

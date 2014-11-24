@@ -7,6 +7,7 @@ class LiveController < ApplicationController
             @title = 'Log In'
         end
 
+
         def post_login #comes here after they submit their log in
             user = User.authenticate(params[:login_val], params[:pass_val])
             if user
@@ -20,6 +21,16 @@ class LiveController < ApplicationController
 
         def dashboard
             @title = 'Dashboard'
+            @user = User.find(session[:user_id])
+            if @user.performer == 'yes'
+                @is_performer = 'block'
+            else
+                @is_performer = 'none'
+            end
+            active_perf = Performance.find_by_user_id(session[:user_id])
+            if active_perf != nil
+                @sched_performance = DateTime.new(active_perf.year.to_i, active_perf.month.to_i, active_perf.day.to_i, active_perf.hour.to_i, active_perf.minute.to_i)
+            end
             scheduler_dates
         end
 
@@ -85,75 +96,162 @@ class LiveController < ApplicationController
             end
         end
 
+        def update_user #action for modifying user info from database
+            photo_name = params[:update_user_form][:upload_photo];
+            nickname = params[:update_user_form][:nickname];
+            age = params[:update_user_form][:age];
+            comedian =  params[:genre_comedian];
+            singer =  params[:genre_singer];
+            musician =  params[:genre_musician];
+            dancer =  params[:genre_dancer];
+            actor =  params[:genre_actor];
+            speaker =  params[:genre_speaker];
+            dj =  params[:genre_DJ];
+            other =  params[:genre_other];
+            performer = params[:performer];
+            description = params[:update_user_form][:description]
+            #update the database value;
+            @user = User.find(session[:user_id])
+            if photo_name != nil
+                photo_name = params[:update_user_form][:upload_photo].original_filename;
+                @user.photo_name = photo_name
+                path_for_upload = File.join(Rails.root.to_s+"/app/assets/images",photo_name)
+                File.open(path_for_upload, "wb"){|fff| fff.write(params[:update_user_form][:upload_photo].read)} 
+            end
+            @user.nickname = 'test';
+            # @user.age = age;
+            # @user.genre_comedian = comedian;
+            # @user.genre_singer = singer;
+            # @user.genre_musician = musician;
+            # @user.genre_dancer = dancer;
+            # @user.genre_actor = actor;
+            # @user.genre_speaker = speaker;
+            # @user.genre_DJ = dj;
+            # @user.genre_other = other;
+            # @user.description = description;
+            @user.save
+            redirect_to :controller => 'live', :action => 'dashboard'
+            #if @user.update_attributes()
+        end
+
    # THIS IS AN ALEX DEFINED METHOD THAT IS TO BE CALLED FORM THE DASHBOARD INDEX 
        def scheduler_dates
             #allow variables to be accessible in the dashboard controller by adding "@" before the variable name -- always include, not just at create
             @weeks_shown = 3;
             @today_datetime = DateTime.now
+            cwday = DateTime.now.cwday
             #monday = 1; tuesday = 2; wednesday = 3; thursday = 4; friday = 5; saturday = 6; sunday = 7;
-            @days_of_week_integer = [3, 5, 7]       
-            @start_time_hour = 19; #military time - hours 0..23
+            @days_of_week_integer = [3, 4, 6]  #keep in ascending order     
+            @start_time_hour = 17; #military time - hours 0..23
             @start_time_min = 45; #minute of the first show
             @num_shows_a_day = 2; #number of shows to occur every day (base zero - subtract one frm actual number...i.e. 2 is for 3 shows a day)
             @length_of_show = 10; #min length of each show
             @intermission_time = 5; #mins between shows
-
-            @time_array = []
+            
             @num_slots_to_show_table = @days_of_week_integer.count*@num_shows_a_day
-            #the placeholder day is going to represent the DateTime for the first show, but will be used mostly for getting time array with hours and mins
-            #that can be used in the loop to define the years worth of slots for setting hour and min of performances
+            
+            days_greater_count = 0;
+            equal_day_flag = 0;
+            @days_of_week_integer.each do |weekday|
+                if @today_datetime.cwday < weekday
+                    days_greater_count = days_greater_count+1
+                elsif @today_datetime.cwday == weekday
+                    equal_day_flag = 1;
+                end
+            end
+            @equal_day_flag = equal_day_flag
+            #(0) - set up some builders that can be used to for dateTimes
+            @days_greater_count = days_greater_count
             placeholder_day = DateTime.new(@today_datetime.year, @today_datetime.month, @today_datetime.day, @start_time_hour, @start_time_min)
-            
-            
+            @hour_array = [];
+            @min_array = [];
+            @time_array = [];
             for jj in 0..@num_shows_a_day
                 @time_array << placeholder_day + ((@length_of_show+@intermission_time)*jj).minutes
+                @hour_array << @time_array[jj].hour
+                @min_array << @time_array[jj].min
             end 
-            
-            @days_of_week = [];
-            @table_slots = [];
-           
-            #create a years worth of slots based off of day of the weeks and time, start from todays date...put into a big array
-            start_date = @today_datetime-1.weeks; #start with last week
-            jj=0;
-            while jj < 5 do
-                for kk in 0...@days_of_week_integer.count
-                    for ll in 0..@num_shows_a_day
-                        @day_slot = start_date + jj.weeks 
-                        n_week = @day_slot.next_week;
-                        @date_with_day = @day_slot - (7-@days_of_week_integer[kk]).days
-                        #need to make it so that the day is only going to be on the days of the week we are interested in
-                        @year_slot_present = DateTime.new(@date_with_day.year, @date_with_day.month, @date_with_day.day, @time_array[ll].hour, @time_array[ll].minute)
-                        if @today_datetime < @year_slot_present
-                            #then this means that we are now in the future -- this 
-                            @table_slots << @year_slot_present
-                        end
-                    end
+
+            # @hour_array2 = [];
+            # @min_array2 = [];
+            # specific_dates = [];
+            # for jj in 0..@num_shows_a_day
+            #     time_show =  @start_time_hour*100 + @start_time_min + jj*(@length_of_show+@intermission_time)
+            #     hour_show =  (time_show/100).truncate
+            #     min_show = time_show - hour_show*100
+            #     @hour_array2 << hour_show
+            #     @min_array2 << min_show
+            #     @hour_array << 2#hour_show
+            #     @min_array << 2#min_show
+            # end
+            #(1) - figure out where we are in regards to days with show
+            specific_dates = []; #array with the dates for the table
+            if equal_day_flag == 1
+                for jj in 0..@num_shows_a_day
+                    show_DateTime = DateTime.now
+                    hour_new = @hour_array[jj]
+                    min_new = @min_array[jj]
+                    show_DateTime = show_DateTime.change(hour: hour_new, min: min_new)
+                    specific_dates << show_DateTime
                 end
-                jj = jj+1;
-            end
-            #the following will pull the dates that we are interested in
-            @specific_dates = [];
-            @days_of_week_integer.each do |dd|
-                @specific_dates << @table_slots[0].next_week - (8-dd).days
             end
 
-            @week_slots = [];
-            @days_of_week_integer.each do |day_int|
-                if day_int == 1
-                    @days_of_week << 'Monday' 
-                elsif day_int == 2
-                    @days_of_week << 'Tuesday'
-                elsif day_int == 3
-                    @days_of_week << 'Wednesday'
-                elsif day_int == 4
-                    @days_of_week << 'Thursday'
-                elsif day_int == 5
-                    @days_of_week << 'Friday'
-                elsif day_int ==6
-                    @days_of_week << 'Saturday'
-                else
-                    @days_of_week << 'Sunday'
-                end     
+            if days_greater_count == @days_of_week_integer.count
+                @days_of_week_integer.each do |cwday_perf|
+                day_change = cwday_perf - cday;
+                    for jj in 0..@num_shows_a_day        
+                        show_DateTime = DateTime.now + day_change.days
+                        hour_new = @hour_array[jj]
+                        min_new = @min_array[jj]
+                        show_DateTime = show_DateTime.change(hour: hour_new, min: min_new)
+                        specific_dates << show_DateTime
+                    end
+                end
+            elsif days_greater_count == 0 && equal_day_flag == 0 #no performances left this week
+                @days_of_week_integer.each do |cwday_perf|
+                    day_change = (7-cwday) + cwday_perf
+                    for jj in 0..@num_shows_a_day        
+                        show_DateTime = DateTime.now + day_change.days
+                        hour_new = @hour_array[jj]
+                        min_new = @min_array[jj]
+                        show_DateTime = show_DateTime.change(hour: hour_new, min: min_new)
+                        specific_dates << show_DateTime
+                    end
+                end
+            else 
+                next_week_dates = @days_of_week_integer.count - days_greater_count;
+                this_week_dates = @days_of_week_integer.count - next_week_dates;
+                #first set up this weeks dates
+                @in_here = 'yes'
+                for jj in 1..this_week_dates
+                    day_week = @days_of_week_integer[@days_of_week_integer.count - this_week_dates + (jj-1)]
+                    day_change = day_week - cwday;
+                    for kk in 0..@num_shows_a_day
+                        show_DateTime = DateTime.now + day_change.days
+                        hour_new = @hour_array[kk]
+                        min_new = @min_array[kk]
+                        show_DateTime = show_DateTime.change(hour: hour_new, min: min_new)
+                        specific_dates << show_DateTime
+                    end
+                end
+                for jj in 1..next_week_dates
+                    day_week = @days_of_week_integer[jj-1]
+                    day_change = 7 - (cwday-day_week);
+                    for kk in 0..@num_shows_a_day
+                        show_DateTime = DateTime.now + day_change.days
+                        hour_new = @hour_array[kk]
+                        min_new = @min_array[kk]
+                        show_DateTime = show_DateTime.change(hour: hour_new, min: min_new)
+                        specific_dates << show_DateTime
+                    end
+                end
+            end            
+            @this_week_dates = this_week_dates
+            @specific_dates = specific_dates;
+            @combined_current_time = @today_datetime.strftime('%k%M').to_i
+            @combined_time = [];
+            specific_dates.each do |s_date|
+                @combined_time << s_date.strftime('%k%M').to_i
             end
        end
 end
