@@ -114,22 +114,22 @@ class LiveController < ApplicationController
             @user = User.find(session[:user_id])
             if photo_name != nil
                 photo_name = params[:update_user_form][:upload_photo].original_filename;
-                @user.photo_name = photo_name
+                @user.update_attribute(:photo_name, photo_name)
                 path_for_upload = File.join(Rails.root.to_s+"/app/assets/images",photo_name)
                 File.open(path_for_upload, "wb"){|fff| fff.write(params[:update_user_form][:upload_photo].read)} 
             end
             @user.nickname = 'test';
-            # @user.age = age;
-            # @user.genre_comedian = comedian;
-            # @user.genre_singer = singer;
-            # @user.genre_musician = musician;
-            # @user.genre_dancer = dancer;
-            # @user.genre_actor = actor;
-            # @user.genre_speaker = speaker;
-            # @user.genre_DJ = dj;
-            # @user.genre_other = other;
-            # @user.description = description;
-            @user.save
+            @user.update_attribute(:nickname, nickname)
+            @user.update_attribute(:genre_comedian, comedian)
+            @user.update_attribute(:genre_singer, singer)
+            @user.update_attribute(:genre_musician, musician)
+            @user.update_attribute(:genre_dancer, dancer)
+            @user.update_attribute(:genre_actor, actor)
+            @user.update_attribute(:genre_speaker, speaker)
+            @user.update_attribute(:genre_DJ, dj)
+            @user.update_attribute(:genre_other, other)
+            @user.update_attribute(:description, description)
+            @user.update_attribute(:performer, performer)
             redirect_to :controller => 'live', :action => 'dashboard'
             #if @user.update_attributes()
         end
