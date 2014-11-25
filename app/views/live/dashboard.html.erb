@@ -21,7 +21,7 @@
 		<p> "<%=User.find(session[:user_id]).description %>" </p>
 
 		<!--insert logic to display if they are a performer -->
-		<p> <% if User.find(session[:user_id]).performer = "yes" %>
+		<p> <% if User.find(session[:user_id]).performer == "yes" %>
 			This user is a PERFORMER!
 			<%end%>
 		</p>
@@ -30,7 +30,7 @@
 		<%= image_tag "/assets/"+user_image, height: '200' %>
 		
 		<% if Performance.find_by_user_id(session[:user_id]) == nil %>
-			<h4> Get started by signing up for a performance </h4>
+			
 		<% else %>	
 				<p> <h4>Your upcoming performances:  </h4>
 				<% if Performance.find(:last, :user_id == User.find(session[:user_id]).id).active_flag = "yes" %>
@@ -72,7 +72,7 @@
 			</p>
 			<p>
 				<%= user_form.label :Age %>
-				<%= user_form.select :age, [['10-15','10to15'],['15-20','15to20'],['20-25','20to25'],['25-30','25to30'],['30-35','35to40'],['40+','40plus']], :selected  => @user.age %>
+				<%= user_form.select :age, [['N/A', 'NA'],['10-15','10to15'],['15-20','15to20'],['20-25','20to25'],['25-30','25to30'],['30-35','35to40'],['40+','40plus']], :selected  => @user.age %>
 			</p>
 			<p>
 				<% if @user.performer == 'yes' %>
@@ -177,7 +177,7 @@
 
 
 
-	<h2> Sign up for a performance time slot! </h2>
+	
 
 
 
@@ -201,6 +201,13 @@
 <% counter = 0 %>
 <% c2 = 0 %>
 
+<% if User.find(session[:user_id]).performer == 'no' %>
+	<p> To sign up for performance time slots, please change your profile settings to indicate that you are interested in being a performer. </p>
+<%else %>
+
+<% if Performance.where(:user_id => session[:user_id], :active_flag => 'yes') != [] %>
+<% else %>
+<h2> Sign up for a performance time slot! </h2>
 <table style="border: 1px solid black;">
 	<tr> 
 		<td colspan=2 style="border: 1px solid black;">
@@ -250,7 +257,9 @@
 	<% c2 = c2 + 1 %>
 	<% end %>
 </table>
+<%end%>
 
+<% end %>
 
 <!-- <ol>
 <% @specific_dates.each do |slot| %>

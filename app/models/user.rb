@@ -2,15 +2,16 @@ class User < ActiveRecord::Base
 	attr_accessor :password
 	before_save :encrypt_password
 	#set the things we want to validate
-	validates :email, :nickname, :password_confirmation, :performer, :terms_conditions, :presence =>true
-	#validates :description, presence: true, if: :performer_yes?
+	validates :email, :nickname, :password, :performer, :terms_conditions, :presence =>true
+	validates :description, presence: true, if: :performer_yes?
 	validates :email, :uniqueness => true
 	validates :password, :confirmation => true
+	validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 
 	#add a validate that checks that at least one genre is picked if they are indeed a performer
-	#def performer_yes?
-	#  performer == "yes"
-	#end
+		def performer_yes?
+	  		performer == "yes"
+		end
 
 		def encrypt_password
 		  if password.present?

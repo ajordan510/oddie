@@ -7,6 +7,11 @@ class LiveController < ApplicationController
             @title = 'Log In'
         end
 
+        def logout
+            reset_session;
+            redirect_to :controller => 'live', :action => 'login'
+        end
+
 
         def post_login #comes here after they submit their log in
             user = User.authenticate(params[:login_val], params[:pass_val])
@@ -36,6 +41,9 @@ class LiveController < ApplicationController
 
 
         def create_user
+            if @new_live_user != nil
+                @new_live_user.errors.clear
+            end
             email = params[:live_signup_form][:email]  #done
             nickname = params[:live_signup_form][:nickname]  #done
             pass = params[:live_signup_form][:password]   #done
@@ -52,9 +60,14 @@ class LiveController < ApplicationController
             genre_other = params[:genre_other]
             description = params[:live_signup_form][:description]
             terms_conditions = params[:terms_conditions]
-            @photo_name = params[:live_signup_form][:upload_photo].original_filename
-            path_for_upload = File.join(Rails.root.to_s+"/app/assets/images",@photo_name)
-            File.open(path_for_upload, "wb"){|fff| fff.write(params[:live_signup_form][:upload_photo].read)} 
+            @photo_name = params[:live_signup_form][:upload_photo]
+            if @photo_name != nil
+                @photo_name = params[:live_signup_form][:upload_photo].original_filename
+                path_for_upload = File.join(Rails.root.to_s+"/app/assets/images",@photo_name)
+                File.open(path_for_upload, "wb"){|fff| fff.write(params[:live_signup_form][:upload_photo].read)} 
+            else
+                @photo_name = 'male-silhouette.jpg'
+            end
             id = params[:id]
             @new_live_user = User.new(:email => email, :nickname => nickname, :age => age, :performer => performer, 
             	:genre_comedian => genre_comedian, :genre_singer => genre_singer, :genre_musician => genre_musician,
@@ -198,7 +211,7 @@ class LiveController < ApplicationController
 
             if days_greater_count == @days_of_week_integer.count
                 @days_of_week_integer.each do |cwday_perf|
-                day_change = cwday_perf - cday;
+                day_change = cwday_perf - cwday;
                     for jj in 0..@num_shows_a_day        
                         show_DateTime = DateTime.now + day_change.days
                         hour_new = @hour_array[jj]

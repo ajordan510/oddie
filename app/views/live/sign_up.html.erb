@@ -1,50 +1,69 @@
 <!-- main body for signup page -->
 <div id="header">
+	<!-- 
+-->
 	<h1 id="header-text">Sign-Up Page</h1>
 	<h3 class="subtext">Welcome! Just answer a quick couple of questions for us, and you'll be ready to take part in the endless entertainment that is SpectaFresh! </h3>
 	<p><br/></p>
 	<% if flash[:confirm] == nil%>
-		
+
 		<div class="form-box">
 
-			<% if @new_live_user.nil? %>
-			<% else %>
-				<ol class = "error_mess_reg">
-					<% @new_live_user.errors.full_messages.each do |msg| %>
-					<li > <%= msg %></li>
-					<% end %>
-				</ol>
-				<% end %>
 			<%= form_for(:live_signup_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create_user"}) do |form| %>
 
 			<!-- USER'S EMAIL ADDRESS -->
 			<p>
 				<%= form.label :Email_Address %>
-				<%= form.text_field :email, :class =>'search-input', :placeholder =>"username@domain.com"%><br/>
+				<%= form.text_field :email, :class =>'search-input', :placeholder =>"username@domain.com"%>
+					<% if @new_live_user != nil && @new_live_user.errors[:email] != [] %>
+						<span class='error_text'> Please enter a valid email address. </span>
+					<% end %>
+
+				<br/> 
 			</p>
 
 			<!-- USER'S NICKNAME -->
 			<p>
 				<%= form.label :Nickname %>
-				<%= form.text_field :nickname, :class =>'search-input', :placeholder =>"Nickname"%><br/>
+				<%= form.text_field :nickname, :class =>'search-input', :placeholder =>"Nickname"%>
+				<% if @new_live_user != nil && @new_live_user.errors[:nickname] != [] %>
+						<span class='error_text'> Please enter your nickname. </span>
+				<% end %>
+				<br/>
 			</p>
 
 			<!-- USER'S PASSWORD -->
 			<p>
 				<%= form.label :Password %>
-				<%= form.password_field :password, :placeholder =>"password"%><br/>
+				<%= form.password_field :password, :placeholder =>"password"%>
+				<% if @new_live_user != nil && @new_live_user.errors[:password] != [] %>
+						<span class='error_text'> Please create a password. </span>
+				<% end %>
+				<br/>
 			</p>
 
 			<p>
 				<%= form.label :Confirm_Password %>
-				<%= form.password_field :password_confirmation, :placeholder =>"password"%><br/>
+				<%= form.password_field :password_confirmation, :placeholder =>"password"%>
+				<% if @new_live_user != nil && @new_live_user.errors[:password_confirmation] != [] %>
+						<span class='error_text'> Your password confirmation must match your password. </span>
+				<% end %>
+				<br/>
 			</p>
 
 
 			<!-- USER'S AGE (DROP DOWN MENU) -->
 			<p>
 				<%= form.label :Age %>
-				<%= form.select :age, [['10-15','10to15'],['15-20','15to20'],['20-25','20to25'],['25-30','25to30'],['30-35','35to40'],['40+','40plus']] %>
+				<%= form.select :age, [['N/A', 'NA'],['10-15','10to15'],['15-20','15to20'],['20-25','20to25'],['25-30','25to30'],['30-35','35to40'],['40+','40plus']] %>
+			</p>
+			<!-- USER'S PHOTO -->
+			<div class="upload-preview" style="display: none;">
+    			<img id='preview_image'/>
+			</div>
+			<p>
+				<%= form.label :Profile_Photo %>
+				<%= form.file_field(:upload_photo, class: 'file') %> <br/>
 			</p>
 
 			<!-- USER'S EMAIL ADDRESS -->
@@ -54,16 +73,32 @@
 				I would be interested in being a performer:
 			</h3>
 			<p>
-				<%= radio_button_tag(:performer, "yes") %>
-				<%= label_tag(:performer_yes,"Yes") %>
-				<%= radio_button_tag(:performer, "no") %>
-				<%= label_tag(:performer_no,"No") %>
-				<%= radio_button_tag(:performer, "yes") %>
-				<%= label_tag(:performer_maybe,"Maybe") %>
+					<%= radio_button_tag(:performer, "yes", false, :onclick => "show_checks();") %>
+					<%= label_tag(:performer_yes,"Yes") %>
+					<%= radio_button_tag(:performer, "no", false, :onclick => "unshow_checks();") %>
+					<%= label_tag(:performer_no,"No") %>
+					<% if @new_live_user != nil && @new_live_user.errors[:performer] != [] %>
+						<span class='error_text'> Please indicate whether you are interested in being a performer. </span>
+					<% end %>
+
 			</p>
 			<!--FOLLOWING FIELDS ACTIVATED IF YES/MAYBE TO PERFORMER -->
+			<script>
+			function unshow_checks() {
+    			document.getElementById("performer_fields").style.display = "none";
+    			console.log('in_unshow')
+    		}
+    		</script>
+    		<script>
+    		function show_checks(){
+    			document.getElementById("performer_fields").style.display = "block";
+    			console.log('in_show')
+			}
+			</script>
 
+			<div id="performer_fields" style = "display: none;">
 			<!-- USER'S PERFORMANCE GENRE (optional, but required if a performer-based off previous) -->
+
 			<h3 class="subtext">
 				I will be performing as a (choose any that apply):
 			</h3>
@@ -90,20 +125,21 @@
 
 			<!-- USER'S DESCRIPTION (long text form?) -->
 			<p>
-				<%= form.text_area :description, :class =>'search-input', :placeholder =>"Your Performance Description"%><br/>
+				<%= form.text_area :description, :class =>'search-input', :placeholder =>"Your Performance Description"%>
+				<% if @new_live_user != nil && @new_live_user.errors[:description] != nil %>
+						<span class='error_text'> Please provide a description about yourself as a performer. </span>
+				<% end %>
+				<br/>
 			</p>
-			<!-- USER'S PHOTO -->
-			<div class="upload-preview">
-    			<img id='preview_image'/>
-			</div>
-			<p>
-				<%= form.label :Profile_Photo %>
-				<%= form.file_field(:upload_photo, class: 'file') %> <br/>
-			</p>
+		</div>
+
 
 			<p>
 				<%= check_box_tag(:terms_conditions, "acceptance") %>
 				<%= label_tag(:tc_tag, "I accept terms and conditions.") %>
+				<% if @new_live_user != nil && @new_live_user.errors[:description] != [] %>
+						<span class='error_text'> You must accept SpectaFresh's terms and conditions to proceed. </span>
+				<% end %>
 			</p>
 			<!-- SUBMIT BUTTON -->
 			<p>
@@ -116,4 +152,6 @@
 			<p id="confirm-message"><%= flash[:confirm]%></p>
 	<% end %> 
 </div>
+
+
 </div>

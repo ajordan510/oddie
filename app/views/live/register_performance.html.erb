@@ -1,4 +1,7 @@
 <!-- main body for the register performance page -->
+
+<p> Schedule performance on: <%= params[:month] %>/<%= params[:day] %> at <%= params[:hour] %>:<%= params[:minute] %> </p>
+
 <% if flash[:confirm_performance] == nil%>
 		
 		<!--Display time/date info for performance -->
