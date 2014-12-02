@@ -44,7 +44,10 @@
 					Description: "<%= Performance.find(:last, :user_id == User.find(session[:user_id]).id).description %>"
 					</p>
 					<p>
-					Performance Time: "<%= @sched_performance.strftime('%l:%M on %m/%e') %>""
+					Performance Time: <%= @sched_performance.strftime('%l:%M on %m/%e') %>
+					</p>
+					<p>
+						<%= link_to 'cancel performance', {:controller => "live", :action => "cancel_performance", :month => @sched_performance.month, :day => @sched_performance.day, :year => @sched_performance.year, :hour => @sched_performance.hour, :minute =>@sched_performance.minute, :user_id => session[:user_id]}  %>
 					</p>
 				<% end %>
 				</p> 
@@ -200,6 +203,8 @@
 
 <% counter = 0 %>
 <% c2 = 0 %>
+<% booked_counter = 0 %>
+
 
 <% if User.find(session[:user_id]).performer == 'no' %>
 	<p> To sign up for performance time slots, please change your profile settings to indicate that you are interested in being a performer. </p>
@@ -246,6 +251,24 @@
 						<%= @specific_dates[counter].strftime("%l:%M %p") %>
 					<% end %>
 					<!-- if the date is in the past then grey out -->
+				<% elsif Performance.where(:minute => @specific_dates[counter].minute.to_s, :hour => @specific_dates[counter].hour.to_s, :year => @specific_dates[counter].year.to_s, :day => @specific_dates[counter].day.to_s, :month => @specific_dates[counter].month.to_s) != [] %>
+					
+					<% @performance = Performance.where(:minute => @specific_dates[counter].minute.to_s, :hour => @specific_dates[counter].hour.to_s, :year => @specific_dates[counter].year.to_s, :day => @specific_dates[counter].day.to_s, :month => @specific_dates[counter].month.to_s) %>
+					<% @performer_selected = User.find(@performance[0].user_id) %>
+					<a style="color: red; cursor: pointer;" class="popper" data-popbox="pop<%=booked_counter%>"><%= @specific_dates[counter].strftime("%l:%M %p")  %> </a>
+					<div id="pop<%=booked_counter%>" class="popbox">
+					    <h2>Performance Slot Taken!</h2>
+					    <p>Performer Nickname: <%= @performer_selected.nickname %></p>
+					    <p>Date: <%= @specific_dates[counter].strftime("%A, %B %e ") %></p>
+					    <p>Time: <%= @specific_dates[counter].strftime("%l:%M %p")  %></p>
+						</br>
+						<p>Title: <%= @performance[0].title %></p>
+						<p>Genre: <%= @performance[0].genre %></p>
+					    <p>Description: <%= @performance[0].description %></p>
+					</div>
+
+					<% booked_counter = booked_counter + 1 %>
+					<!-- check to see if the slot is already taken -->
 				<% else %>	
 					<%= link_to @specific_dates[counter].strftime("%l:%M %p"), {:controller => "live", :action => "register_performance", :month => @specific_dates[counter].month, :day => @specific_dates[counter].day, :year => @specific_dates[counter].year, :hour => @specific_dates[counter].hour, :minute => @specific_dates[counter].minute}  %>
 					<!-- will need to coordinate with data -->
@@ -261,12 +284,8 @@
 
 <% end %>
 
-<!-- <ol>
-<% @specific_dates.each do |slot| %>
-	<li><%= slot %></li>
-<% end %>
-</ol>
--->
-
-<!-- ____________________END_SCHEDULER HTML_______________________ -->
-
+<script type="text/javascript">
+function hoverPerfSlot(nickname){
+	console.log(nickname)
+}
+</script>

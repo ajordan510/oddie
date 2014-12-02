@@ -7,6 +7,18 @@ class LiveController < ApplicationController
             @title = 'Log In'
         end
 
+        def cancel_performance
+            year = params[:year].to_s
+            month = params[:month].to_s
+            day = params[:day].to_s
+            hour = params[:hour].to_s
+            minute = params[:minute].to_s
+            user_id = params[:user_id].to_i
+            perf_to_destroy = Performance.where(:minute => minute, :hour => hour, :year => year, :day => day, :month => month, :user_id => user_id);
+            perf_to_destroy[0].destroy
+            redirect_to :controller => 'live', :action => 'dashboard'
+        end
+
         def logout
             reset_session;
             redirect_to :controller => 'live', :action => 'login'
