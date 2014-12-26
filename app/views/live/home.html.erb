@@ -1,14 +1,58 @@
 <!-- main body for signup page -->
 <div id="header">
-	<script type="text/javascript">
+		<script type="text/javascript">
 		console.log('here')
 			$(document).ready( function() {
 			    $('.subMenu').smint();
 			});
-	</script>
+		</script>
+	<div class="subMenu" >
+	 	<!-- make "home" the microphone icon -->
+	 		<a href="#logo-section" class="subNavBtn">Home</a> 
+	 		<a href="#schedule" class= "subNavBtn">Upcoming Performances</a>
+	 		<a href="#description" class="subNavBtn">What is SpectaFresh?</a> 
+	 		<a href="https://twitter.com/SpectaFresh" class="subNavBtn extLink end">Follow Us!</a>	
+
+	 			<div id="loginMenu">
+					<% if flash[:bad_login] %>
+						<div class = "error_message"><%= flash[:bad_login] %></div>
+					<% end %>
+
+					<% if @logged_in_user.nil? %>
+					<% else %>
+						<% @logged_in_user.errors.full_messages.each do |msg| %>
+							<p class="error_message"> <%= msg %></p>
+						<% end %>
+					<% end %>
+
+					<%= form_tag(:action => :post_login, :method => :post) do %>
+						<h2 id="log_h2">
+						<%= label_tag(:login_val, "Email Address")  %> 
+						<%= text_field_tag(:login_val)  %>
+						<%= label_tag(:pass_val, "Password")    %> 
+						<%= password_field_tag(:pass_val)  %> 
+						
+						<%= submit_tag "Login", :id=>"login_submit" %>
+						
+						</h2>
+						
+					<% end %>
+
+					</div>
+
+	</div>
+
+
+</div> 
+
+
+
+
 
 	
-	<h1 id="header-text">SpectaFresh</h1>
+
+	
+	
 
 	<!--<div class="logo-section">
 		<button id="signup_button">Sign up today!</button>
@@ -18,42 +62,210 @@
 		Already a user? Login here.
 	</a> -->
 
+<div id="middle" class="logo-section">
+<div id="signup">
+	<!-- 
+-->			<h1 id="title-text">SpectaFresh</h1>
+			<h1 id="subtitle-text">Letting artists shine. Letting you unwind. </h1>
+			
+			<h1 id="header-text">New to SpectaFresh? Create an account today! </h1>
+			
+			<% if flash[:confirm] == nil%>
 
-	<div id="container">
-		<h1 id="log_h1">Already a user? Login here.</h1> 	
-		<% if flash[:bad_login] %>
-			<div class = "error_message"><%= flash[:bad_login] %></div>
-		<% end %>
+				<div class="form-box">
 
-		<% if @logged_in_user.nil? %>
-		<% else %>
-			<% @logged_in_user.errors.full_messages.each do |msg| %>
-				<p class="error_message"> <%= msg %></p>
-			<% end %>
-		<% end %>
+					<%= form_for(:live_signup_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"create_user"}) do |form| %>
 
-		<%= form_tag(:action => :post_login, :method => :post) do %>
-			<p>
-			<%= label_tag(:login_val, "Email Address")    %> <br/>
-			<%= text_field_tag(:login_val)  %> <br/>
-			</p>
-			<p>
-			<%= label_tag(:pass_val, "Password")    %> <br/>
-			<%= password_field_tag(:pass_val)  %> <br/>
-			</p>
-			<p>
-			<%= submit_tag "Login", :id=>"login_submit" %>
-			</p>
-		<% end %>
+					<!-- USER'S EMAIL ADDRESS -->
+					<h2 id="form_text">
+						<%= form.label :Email_Address %>
+						<%= form.text_field :email, :class =>'search-input', :placeholder =>"username@domain.com"%>
+							<% if @new_live_user != nil && @new_live_user.errors[:email] != [] %>
+								<span class='error_text'> Please enter a valid email address. </span>
+							<% end %>
 
-		<p id="register"> or <%= link_to 'Sign Up Today!', "/live/sign_up/" %> </p>
-	</div>
+						<br/> 
+					</h2>
+
+					<!-- USER'S NICKNAME -->
+					<h2 id="form_text">
+						<%= form.label :Nickname %>
+						<%= form.text_field :nickname, :class =>'search-input', :placeholder =>"Nickname"%>
+						<% if @new_live_user != nil && @new_live_user.errors[:nickname] != [] %>
+								<span class='error_text'> Please enter your nickname. </span>
+						<% end %>
+						<br/>
+					</h2>
+
+					<!-- USER'S PASSWORD -->
+					<h2 id="form_text">
+						<%= form.label :Password %>
+						<%= form.password_field :password, :placeholder =>"password"%>
+						<% if @new_live_user != nil && @new_live_user.errors[:password] != [] %>
+								<span class='error_text'> Please create a password. </span>
+						<% end %>
+						<br/>
+					</h2>
+
+					<h2 id="form_text">
+						<%= form.label :Confirm_Password %>
+						<%= form.password_field :password_confirmation, :placeholder =>"password"%>
+						<% if @new_live_user != nil && @new_live_user.errors[:password_confirmation] != [] %>
+								<span class='error_text'> Your password confirmation must match your password. </span>
+						<% end %>
+						<br/>
+					</h2>
 
 
-	<h3 class="subtext"> This Week's Performances (insert table) </h3>
-	<p><br/></p>
+					<!-- USER'S AGE (DROP DOWN MENU) -->
+					<h2 id="form_text">
+						<%= form.label :Age %>
+						<%= form.select :age, [['N/A', 'NA'],['10-15','10to15'],['15-20','15to20'],['20-25','20to25'],['25-30','25to30'],['30-35','35to40'],['40+','40plus']] %>
+					</h2>
+					<!-- USER'S PHOTO -->
+					<!--<div class="upload-preview" style="display: none;">
+		    			<img id='preview_image'/>
+					</div> -->
+					<h2 id="form_text">
+						<%= form.label :Profile_Photo %>
+						<%= form.file_field(:upload_photo, class: 'file') %> <br/>
+					</h2>
+
+					<!-- USER'S EMAIL ADDRESS -->
+
+					<!-- USER'S PERFORMER? (y/n) -->
+					<h3 class="subtext">
+						I would be interested in being a performer:
+					</h3>
+					<h2 id="form_text">
+							<%= radio_button_tag(:performer, "yes", false, :onclick => "show_checks();") %>
+							<%= label_tag(:performer_yes,"Yes") %>
+							<%= radio_button_tag(:performer, "no", false, :onclick => "unshow_checks();") %>
+							<%= label_tag(:performer_no,"No") %>
+							<% if @new_live_user != nil && @new_live_user.errors[:performer] != [] %>
+								<span class='error_text'> Please indicate whether you are interested in being a performer. </span>
+							<% end %>
+
+					</h2>
+					<!--FOLLOWING FIELDS ACTIVATED IF YES/MAYBE TO PERFORMER -->
+					<script>
+					function unshow_checks() {
+		    			document.getElementById("performer_fields").style.display = "none";
+		    			console.log('in_unshow')
+		    		}
+		    		</script>
+		    		<script>
+		    		function show_checks(){
+		    			document.getElementById("performer_fields").style.display = "block";
+		    			console.log('in_show')
+					}
+					</script>
+
+					<div id="performer_fields" style = "display: none;">
+					<!-- USER'S PERFORMANCE GENRE (optional, but required if a performer-based off previous) -->
+
+					<h3 class="subtext">
+						I will be performing as a (choose any that apply):
+					</h3>
+					<p>
+						<!-- insert checkbox buttons-->
+						<%= check_box_tag(:genre_comedian, "Comedian") %>
+						<%= label_tag(:genre_comedian_tag, "Comedian") %>
+						<%= check_box_tag(:genre_singer, "Singer") %>
+						<%= label_tag(:genre_singer_tag, "Singer") %>
+						<%= check_box_tag(:genre_musician, "Musician") %>
+						<%= label_tag(:genre_musician_tag, "Musician") %>
+						<%= check_box_tag(:genre_dancer, "Dancer") %>
+						<%= label_tag(:genre_dancer_tag, "Dancer") %>
+						<%= check_box_tag(:genre_actor, "Actor") %>
+						<!--actor: monologues, improv sketches, etc.) -->
+						<%= label_tag(:genre_actor_tag, "Actor") %>
+						<%= check_box_tag(:genre_speaker, "Speaker") %>
+						<%= label_tag(:genre_speaker_tag, "Speaker") %>
+						<%= check_box_tag(:genre_DJ, "DJ") %>
+						<%= label_tag(:genre_DJ_tag, "DJ") %>
+						<%= check_box_tag(:genre_other, "Other Talents") %>
+						<%= label_tag(:genre_other_tag, "Other Talents") %>
+					</p>
+
+					<!-- USER'S DESCRIPTION (long text form?) -->
+					<h2 id="form_text">
+						<%= form.text_area :description, :class =>'search-input', :placeholder =>"Your Performance Description"%>
+						<% if @new_live_user != nil && @new_live_user.errors[:description] != nil %>
+								<span class='error_text'> Please provide a description about yourself as a performer. </span>
+						<% end %>
+						<br/>
+					</h2>
+				</div>
+
+
+					<h2 id="form_text">
+						<%= check_box_tag(:terms_conditions, "acceptance") %>
+						<%= label_tag(:tc_tag, "I accept terms and conditions.") %>
+						<% if @new_live_user != nil && @new_live_user.errors[:description] != [] %>
+								<span class='error_text'> You must accept SpectaFresh's terms and conditions to proceed. </span>
+						<% end %>
+						<p>
+								<%= form.submit "Register", :id=>'register_submit', :class =>'button'%>
+						</p>
+				
+					</h2>
+					<!-- SUBMIT BUTTON -->
+					
+					<% end %>
+			</div>
+			
+			<% else %>
+					<p id="confirm-message"><%= flash[:confirm]%></p>
+			<% end %> 
+		</div>
+
+
+</div>
+
+
+
 	
 
 
 
-</div>
+
+
+
+
+
+
+
+<div id="description" class="description">
+			<h1 id="desc-title-text"> What is SpectaFresh? </h1>
+			<div id="desc-text">
+				<p>
+					If you’re anything like us, you love to be entertained, right? Singing, dancing, comedy, magic, you name it.  If it’s high quality, it will get your attention plain and simple. Hello Kareem
+				</p>
+			   	<p>
+					Also, if you’re anything like us, you probably know someone who is insanely talented at something, and quite frankly could keep up with the best of the best.  Heck, 			maybe that person is even you!  
+				</p>
+				<p>
+					SpectaFresh is a revolutionary platform for live, untapped, amateur talent. Log in as an entertainer, and broadcast your live performance to a sizeable audience 			across the world sitting at their computer screens.  All you need is a webcam! As a viewer, it’s even more simple: log in, select what kind of entertainment you are 			in the mood for (stand up comedy, music, acapella, other random talents, etc.), and be connected to a live performance in a matter of seconds!
+				</p>
+		</div>
+		<div id="desc-video">
+			<div id="video">
+				<video id="video1" width="346" height="260" onclick="playPause()"  poster="/assets/video-play.jpg" >
+			    	<source src="/assets/placeholder-video.MP4" type="video/mp4">
+			    	Your browser does not support HTML5 video.
+				</video>
+			</div>
+			<script> 
+				var myVideo = document.getElementById("video1");
+				function playPause() { 
+			    if (myVideo.paused) 
+			        myVideo.play(); 
+			    else 
+			        myVideo.pause(); 
+				} 
+			</script>
+		</div>
+</div>	
+
+

@@ -1,11 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
 
-<h1 id="header-text">SpectaFresh</h1>
-	<h3 class="subtext"> Welcome <%= User.find(session[:user_id]).nickname %>! </h3>
-	<a class = "link-button" href="/live/logout"> 
+<body>
+
+<div class = "container">
+<div class = "jumbotron">
+	<h1>SpectaFresh </h1>
+	<p> Welcome <%= User.find(session[:user_id]).nickname %>! </p>
+</div>
+</div>
+
+<div class = "container">
+<div class="row">
+  <div class="col-md-4">
+
+	
+	<a class = "link-button" href="/live/home" style="color: blue;"> 
 		Sign out.
 	</a>
 	<!-- STATIC DISPLAY OF PROFILE -->
-	<div id="static_profile" style="border: 1px solid black; width: 50%; padding-left: 5%;">
+	<div id="static_profile" style="border: 1px solid black; width: 100%; padding-left: 5%; padding-bottom: 5%;">
 		<!-- need to work on editing option -->
 		<h2> Your Profile (static option):</h2>
 		<div id="edit_profile_div" style="color: blue; cursor: pointer;" onclick="close_static_div()">edit profile</div>
@@ -56,7 +75,7 @@
 
 
 	<!-- EDIT DISPLAY OF PROFILE -->
-	<div id="edit_profile" style="border: 1px solid black; width: 50%;  padding-left: 5%;  display: none; ">
+	<div id="edit_profile" style="border: 1px solid black; width: 100%;  padding-left: 5%;  padding-bottom: 5%; display: none; ">
 		<!-- need to work on editing option -->
 		<h2> Your Profile (edit option):</h2>
 		<%= form_for(:update_user_form, :html=>{:multipart => true, :id=>'reg_form'}, :url=>{:action=>"update_user"}, :method => :POST) do |user_form| %>
@@ -191,6 +210,7 @@
 
 
 
+
 <!-- ______________________SCHEDULER HTML________________________ -->
 <!-- DateTime.today + n.seconds -->
 <!-- DateTime.today + n.minutes -->
@@ -200,6 +220,9 @@
 <!-- DateTime.today + n.months  -->
 <!-- DateTime.today + n.years   -->
 <!-- DateTime.today.cwday       -->
+
+
+<div class="col-md-4">
 
 <% counter = 0 %>
 <% c2 = 0 %>
@@ -289,3 +312,20 @@ function hoverPerfSlot(nickname){
 	console.log(nickname)
 }
 </script>
+
+</div>
+
+
+
+<div class="col-md-4">
+    <h2>Hello</h2>
+    <p>Placeholders go here.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</body>
+</html>

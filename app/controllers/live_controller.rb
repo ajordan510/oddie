@@ -21,7 +21,7 @@ class LiveController < ApplicationController
 
         def logout
             reset_session;
-            redirect_to :controller => 'live', :action => 'login'
+            redirect_to :controller => 'live', :action => 'home'
         end
 
 
@@ -90,7 +90,8 @@ class LiveController < ApplicationController
                 session[:user_id] = @new_live_user.id
             	redirect_to :controller => 'live', :action => 'dashboard'
             else
-            	render :action => "sign_up"
+            	render :action => "home"
+                #render :action => "sign_up" 
             end
        end
 
